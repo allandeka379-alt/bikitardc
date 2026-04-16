@@ -9,11 +9,13 @@ import {
   BookOpen,
   Building2,
   CalendarClock,
+  CalendarDays,
   ClipboardList,
   FileBadge2,
   FileBarChart,
   FlaskConical,
   HandCoins,
+  HardHat,
   History,
   Landmark,
   LayoutDashboard,
@@ -26,8 +28,11 @@ import {
   Settings,
   Store,
   Trees,
+  Truck,
+  UserCog,
   Users,
   Wallet,
+  Wrench,
   type LucideIcon,
 } from 'lucide-react';
 import Link from 'next/link';
@@ -85,6 +90,24 @@ const GROUPS: NavGroup[] = [
       { href: '/erp/requests',     label: 'Service requests', Icon: LifeBuoy },
       { href: '/erp/requests/map', label: 'Requests map',     Icon: Map },
       { href: '/erp/valuation',    label: 'Valuation cycle',  Icon: CalendarClock },
+    ],
+  },
+  {
+    heading: 'Works & assets',
+    items: [
+      { href: '/erp/works',               label: 'Works overview',   Icon: HardHat },
+      { href: '/erp/works/work-orders',   label: 'Work orders',      Icon: ClipboardList },
+      { href: '/erp/works/fleet',         label: 'Fleet & plant',    Icon: Truck },
+      { href: '/erp/works/maintenance',   label: 'Maintenance plan', Icon: Wrench },
+    ],
+  },
+  {
+    heading: 'HR & payroll',
+    items: [
+      { href: '/erp/hr',            label: 'HR overview',    Icon: UserCog },
+      { href: '/erp/hr/employees',  label: 'Employees',      Icon: Users },
+      { href: '/erp/hr/leave',      label: 'Leave',          Icon: CalendarDays },
+      { href: '/erp/hr/payroll',    label: 'Payroll',        Icon: Wallet },
     ],
   },
   {
