@@ -1,0 +1,230 @@
+{
+  "common": {
+    "appName": "Bikita RDC",
+    "appTagline": "Masevhisi eDhijitari",
+    "demoBanner": "DEMO — Haisi sevhisi chaiyo. Musaisa zvinhu zvenyu zvechokwadi.",
+    "login": "Pinda",
+    "logout": "Buda",
+    "register": "Nyoresa",
+    "getStarted": "Tanga",
+    "learnMore": "Dzidza zvimwe",
+    "seeAll": "Ona zvose",
+    "back": "Dzokera",
+    "next": "Enderera",
+    "continue": "Enderera",
+    "cancel": "Mira",
+    "submit": "Tumira",
+    "search": "Tsvaga",
+    "loading": "Zvichitakura…",
+    "required": "Zvinodiwa",
+    "optional": "[SN] Optional",
+    "live": "Zvichiitika",
+    "new": "Itsva",
+    "language": "Mutauro",
+    "english": "Chirungu",
+    "shona": "ChiShona"
+  },
+  "nav": {
+    "services": "Masevhisi",
+    "payRates": "Bhadhara Mitero",
+    "transparency": "Zvakajeka",
+    "news": "Nhau",
+    "contact": "Taura nesu",
+    "openMenu": "Vhura menyu",
+    "closeMenu": "Vhara menyu"
+  },
+  "landing": {
+    "hero": {
+      "eyebrow": "Kanzuru yeBikita",
+      "headline": "Kanzuru yenyu.",
+      "headlineAccent": "Muhomwe menyu.",
+      "rotating": {
+        "0": "Bhadhara mitero.",
+        "1": "Nyorera mapepa.",
+        "2": "Shuma matambudziko.",
+        "3": "Ona mabhiri.",
+        "4": "Dhawunirodha rizisi."
+      },
+      "subtitle": "Nzvimbo imwe yevanhu nevashandi kuti vabhadhare, vakumbire, vashume uye vave neruzivo — kubva pafoni, muChirungu kana ChiShona.",
+      "ctaPrimary": "Pinda",
+      "ctaSecondary": "Tarisa masevhisi",
+      "trustNoAccount": "Wanikwa kumasevhisi",
+      "trustOffline": "Inoshanda pasina internet",
+      "trustBilingual": "Chirungu neChiShona"
+    },
+    "stats": {
+      "title": "Zvakajeka, nguva ino.",
+      "subtitle": "Nhamba dzekanzuru, dzichivandudzwa masekondi makumi matatu ega ega.",
+      "collected": "Mitero yabhadharwa mwedzi uno",
+      "resolved": "Zvichemo zvapedzwa",
+      "licences": "Marezenisi apihwa gore rino",
+      "projects": "Mapurojekiti anoitika muwadhi"
+    },
+    "services": {
+      "title": "Zvose zvamunoda kubva kukanzuru.",
+      "subtitle": "Sarudza sevhisi. Hamuzotadze kutarisa musina account.",
+      "rates": {
+        "title": "Mitero neKubhadhara",
+        "desc": "Tarisa mari yekubhadhara ubhadhare neEcoCash, OneMoney kana kadhi."
+      },
+      "businessLicence": {
+        "title": "Rezenisi reBhizinesi",
+        "desc": "Nyorera rezenisi itsva, vandudza, kana utapurire kune mumwe."
+      },
+      "buildingPlans": {
+        "title": "Mapuranisi eKuvaka",
+        "desc": "Tumira mapuranisi utevere mvumo, online."
+      },
+      "report": {
+        "title": "Shuma Dambudziko",
+        "desc": "Mapombi akaputsika, migwagwa, marara — nemufananidzo neGPS."
+      },
+      "documents": {
+        "title": "Magwaro Angu",
+        "desc": "Rizisi, zvitupa nesiginesheni munzvimbo imwe."
+      },
+      "transparency": {
+        "title": "Zvakajeka",
+        "desc": "Mari, matenda, misangano, mitemo — zvose zviri pachena."
+      }
+    },
+    "transparency": {
+      "title": "Kwainoenda mari yenyu.",
+      "subtitle": "Mari yewadhi, yakaunganidzwa vs yakashandiswa. Inovandudzwa mwedzi woga woga.",
+      "legendCollected": "Zvaunganidzwa",
+      "legendSpent": "Zvashandiswa",
+      "viewBudget": "Ona bhajeti rose",
+      "links": {
+        "tenders": "Matenda aripo",
+        "meetings": "Misangano yekanzuru",
+        "bylaws": "Raibhurari yemitemo"
+      }
+    },
+    "news": {
+      "title": "Nhau nezviziviso",
+      "subtitle": "Rambai muchiziva nezviziviso zvekanzuru.",
+      "seeAll": "Ona zviziviso zvose"
+    },
+    "wards": {
+      "title": "Kuvaka Bikita, wadhi neiwadhi.",
+      "subtitle": "Mapurojekiti anoitika mumatunhu ose.",
+      "progress": "Kuenda mberi"
+    },
+    "cta": {
+      "title": "Tanga mumaminitsi maviri chete.",
+      "subtitle": "Nyoresa nechitupa nenhamba yefoni — hapana mapepa.",
+      "primary": "Gadzira account",
+      "secondary": "Ndinayo kare account"
+    },
+    "footer": {
+      "tagline": "Kanzuru yeBikita — nzvimbo yeveruzhinji yakavakirwa vanhu, vashandi uye makanzura.",
+      "services": "Masevhisi",
+      "council": "Kanzuru",
+      "legal": "Mutemo",
+      "connect": "Batana nesu",
+      "rightsReserved": "Kodzero dzose dzakachengetedzwa.",
+      "version": "Demo v0.1",
+      "links": {
+        "about": "Nezve kanzuru",
+        "councillors": "Makanzura",
+        "wards": "Mawadhi",
+        "meetings": "Misangano",
+        "careers": "Mabasa",
+        "privacy": "Mutemo wezvakavanzika",
+        "terms": "Mitemo yekushandisa",
+        "accessibility": "Kuwanikwa",
+        "dataProtection": "Mutemo weKuchengeteka Data",
+        "phone": "Nhamba yefoni",
+        "whatsapp": "WhatsApp",
+        "email": "Email"
+      }
+    }
+  },
+  "auth": {
+    "login": {
+      "title": "Tinokugamuchirai zvakare",
+      "subtitle": "Pinda kuti utarise mitero, zvawakakumbira nezvawakashuma.",
+      "emailLabel": "Email kana nhamba yefoni",
+      "emailPlaceholder": "tendai@demo.bikita",
+      "passwordLabel": "Password",
+      "passwordPlaceholder": "Demo1234",
+      "forgot": "Wakanganwa password?",
+      "submit": "Pinda",
+      "noAccount": "Hauna account?",
+      "register": "Gadzira account",
+      "invalid": "Email kana password haina kurongeka. Edza rimwe reaccount dzedemo dziri pasi.",
+      "demoHint": "Zvinoshandiswa padhemo",
+      "demoResident": "Mugari",
+      "demoClerk": "Mushandi weMitero",
+      "demoBoth": "Zvose zviri zviviri"
+    },
+    "register": {
+      "title": "Gadzira account yako",
+      "subtitle": "Zvinotora maminitsi maviri. Hapana mapepa.",
+      "step1": "Zvauri",
+      "step2": "Simbisa nhamba",
+      "step3": "Sarudza password",
+      "idLabel": "Nhamba yechitupa",
+      "idPlaceholder": "00-123456K00",
+      "phoneLabel": "Nhamba yefoni",
+      "phonePlaceholder": "+263 77 123 4567",
+      "fullNameLabel": "Zita rizere",
+      "fullNamePlaceholder": "Tendai Moyo",
+      "otpLabel": "Nhamba dzitanhatu",
+      "otpHelper": "Isa code yatakutumira pafoni.",
+      "otpDemoHint": "Demo: chero nhamba dzitanhatu dzinoshanda kunze kwe000000.",
+      "passwordLabel": "Gadzira password",
+      "confirmPasswordLabel": "Simbisa password",
+      "termsLabel": "Ndinobvuma mitemo yekushandisa nemutemo wezvakavanzika.",
+      "submit": "Gadzira account",
+      "otpError": "Code iyoyi haiite. Edza zvakare.",
+      "passwordMismatch": "Mapassword haaenderane.",
+      "passwordWeak": "Password inofanira kuva nemabhii masere kana kupfuura.",
+      "success": "Account yagadzirwa. Chipinda."
+    },
+    "chooseRole": {
+      "title": "Wagamuchirwa, Tendai.",
+      "subtitle": "Une account mbiri — yemugari neyemushandi. Iyi yandiri nhasi?",
+      "resident": "Mugari",
+      "residentDesc": "Bhadhara mitero, kumbira masevhisi, tevera zvawakashuma.",
+      "staff": "Mushandi",
+      "staffDesc": "Dashboard yeERP, vagari, kubhadhara, zvichemo zvevanhu.",
+      "rememberChoice": "Rangarira sarudzo yangu"
+    }
+  },
+  "errors": {
+    "notFound": {
+      "title": "Hatina kuwana peji iyoyi.",
+      "subtitle": "Rinki ingangove yakaputsika, kana peji yakatamiswa.",
+      "goHome": "Enda kudzimba",
+      "services": "Tarisa masevhisi"
+    },
+    "serverError": {
+      "title": "Pane chakakanganisika kudivi redu.",
+      "subtitle": "Takaziva nezvenyaya iyoyi uye tichaitarisa. Edza zvakare shure kwekanguva.",
+      "retry": "Edza zvakare",
+      "goHome": "Enda kudzimba"
+    },
+    "offline": {
+      "title": "Hauna internet.",
+      "subtitle": "Takachengeta statement nerizisi yako yekupedzisira kuti uende kuzvitarisa. Tichasimbisa zvimwe kana wavheka.",
+      "retry": "Edza kudzosera internet"
+    }
+  },
+  "portal": {
+    "stub": {
+      "title": "Poto yemugari",
+      "subtitle": "Dashboard, mapurazi, kubhadhara, zvakakumbirwa nezvakashumwa zvichauya pano.",
+      "comingSoon": "Zvichauya munhanho inotevera",
+      "back": "Dzokera kudzimba"
+    }
+  },
+  "erp": {
+    "stub": {
+      "title": "ERP yeVashandi",
+      "subtitle": "KPIs, vagari, kubhadhara, zvakakumbirwa nemepu yezvichemo zvichauya pano.",
+      "comingSoon": "Zvichauya munhanho inotevera",
+      "back": "Dzokera kudzimba"
+    }
+  }
+}

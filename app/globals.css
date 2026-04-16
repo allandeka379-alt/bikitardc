@@ -1,0 +1,268 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─────────────────────────────────────────────
+   Bikita RDC — Design System Tokens
+
+   Light-theme civic palette mandated by spec §5.1:
+     • Council Blue  #1F3A68  (primary)
+     • Gold          #C9A227  (accent)
+     • Semantic greens/ambers/reds for status
+
+   Consumed by Tailwind (tailwind.config.ts) and
+   directly by charts & inline styles.
+   ───────────────────────────────────────────── */
+
+@layer base {
+  :root {
+    /* Brand */
+    --color-brand-primary: 31 58 104;       /* #1F3A68 — Council Blue */
+    --color-brand-accent:  201 162 39;      /* #C9A227 — Gold */
+    --color-brand-ink:     17 24 39;        /* #111827 */
+
+    /* Semantic */
+    --color-success: 30 127 79;             /* #1E7F4F */
+    --color-warning: 199 119 0;             /* #C77700 */
+    --color-danger:  180 35 24;             /* #B42318 */
+    --color-info:    30 90 170;             /* #1E5AAA */
+
+    /* Neutrals */
+    --color-ink:     34 34 34;              /* #222222 body text */
+    --color-muted:   85 85 85;              /* #555555 secondary text */
+    --color-border:  229 231 235;           /* #E5E7EB */
+    --color-surface: 247 248 250;           /* #F7F8FA page bg */
+    --color-card:    255 255 255;           /* #FFFFFF */
+
+    /* Radius — spec §5.3 */
+    --radius-sm: 0.375rem;   /* 6px inputs */
+    --radius-md: 0.5rem;     /* 8px cards */
+    --radius-lg: 0.75rem;    /* 12px larger cards */
+    --radius-xl: 1rem;       /* 16px modals, hero cards */
+
+    /* Motion */
+    --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+    --duration-fast: 150ms;
+    --duration-base: 200ms;
+    --duration-slow: 300ms;
+
+    /* Z-index */
+    --z-dropdown:  40;
+    --z-sticky:    45;
+    --z-overlay:   50;
+    --z-modal:     60;
+    --z-toast:     80;
+    --z-tooltip:   90;
+  }
+}
+
+/* ─────────────────────────────────────────────
+   Base
+   ───────────────────────────────────────────── */
+
+@layer base {
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    background-color: rgb(var(--color-surface));
+    color: rgb(var(--color-ink));
+  }
+
+  ::selection {
+    background-color: rgba(var(--color-brand-primary), 0.18);
+    color: rgb(var(--color-brand-primary));
+  }
+
+  /* Accessible focus ring — spec §10.1 */
+  :focus-visible {
+    outline: 2px solid rgba(var(--color-brand-primary), 0.7);
+    outline-offset: 2px;
+    border-radius: 3px;
+  }
+
+  :focus:not(:focus-visible) {
+    outline: none;
+  }
+
+  /* Slim civic scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: rgba(var(--color-border), 0.8);
+    border-radius: 4px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgb(var(--color-muted));
+  }
+
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(var(--color-border), 0.8) transparent;
+  }
+
+  /* Remove autofill yellow/blue */
+  input:-webkit-autofill,
+  input:-webkit-autofill:hover,
+  input:-webkit-autofill:focus,
+  textarea:-webkit-autofill {
+    -webkit-text-fill-color: rgb(var(--color-ink));
+    -webkit-box-shadow: 0 0 0 1000px rgb(var(--color-card)) inset;
+    transition: background-color 5000s ease-in-out 0s;
+  }
+
+  input[type='number']::-webkit-inner-spin-button,
+  input[type='number']::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  input[type='number'] {
+    -moz-appearance: textfield;
+  }
+
+  ::placeholder {
+    color: rgb(var(--color-muted) / 0.7);
+    opacity: 1;
+  }
+}
+
+/* ─────────────────────────────────────────────
+   Utilities
+   ───────────────────────────────────────────── */
+
+@layer utilities {
+  /* Tabular figures for financial numbers — spec §5.2 */
+  .tabular-nums {
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* Gradient brand text (hero accents) */
+  .text-gradient-brand {
+    background: linear-gradient(
+      135deg,
+      rgb(var(--color-brand-primary)) 0%,
+      rgb(var(--color-info)) 50%,
+      rgb(var(--color-brand-accent)) 100%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  /* Light glassmorphism card (used on hero overlays) */
+  .glass-card-light {
+    background: rgba(255, 255, 255, 0.78);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(12px) saturate(160%);
+    -webkit-backdrop-filter: blur(12px) saturate(160%);
+    box-shadow:
+      0 0 0 1px rgba(31, 58, 104, 0.05),
+      0 24px 48px -12px rgba(17, 24, 39, 0.14);
+  }
+
+  /* Noise/grain overlay for hero (subtle) */
+  .bg-grain {
+    background-image:
+      radial-gradient(circle at 1px 1px, rgba(0, 0, 0, 0.04) 1px, transparent 0);
+    background-size: 24px 24px;
+  }
+
+  /* Single-line truncate */
+  .truncate-line {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  /* Hide scrollbar but keep scrollable (horizontal carousels) */
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  /* Safe-area padding for PWA on notched devices */
+  .safe-bottom {
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+  .safe-top {
+    padding-top: env(safe-area-inset-top, 0px);
+  }
+
+  /* Staggered children (used in service grids, news cards) */
+  .stagger-children > * {
+    opacity: 0;
+    animation: bikita-fade-up 400ms var(--ease-out-expo) forwards;
+  }
+  .stagger-children > *:nth-child(1) { animation-delay: 0ms; }
+  .stagger-children > *:nth-child(2) { animation-delay: 60ms; }
+  .stagger-children > *:nth-child(3) { animation-delay: 120ms; }
+  .stagger-children > *:nth-child(4) { animation-delay: 180ms; }
+  .stagger-children > *:nth-child(5) { animation-delay: 240ms; }
+  .stagger-children > *:nth-child(6) { animation-delay: 300ms; }
+  .stagger-children > *:nth-child(7) { animation-delay: 360ms; }
+  .stagger-children > *:nth-child(8) { animation-delay: 420ms; }
+
+  /* Live-indicator pulse ring (used on transparency stats) */
+  .pulse-dot::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: currentColor;
+    animation: bikita-pulse-ring 1.8s var(--ease-out-expo) infinite;
+  }
+
+  /* Hover-lift card (subtle, responsive) */
+  .hover-lift {
+    transition:
+      transform var(--duration-base) var(--ease-out-expo),
+      box-shadow var(--duration-base) var(--ease-out-expo);
+  }
+  .hover-lift:hover {
+    transform: translateY(-2px);
+    box-shadow:
+      0 16px 32px -12px rgba(31, 58, 104, 0.18),
+      0 4px 8px -4px rgba(17, 24, 39, 0.06);
+  }
+}
+
+/* ─────────────────────────────────────────────
+   Keyframes (consumed via utility classes above
+   or directly in component styles)
+   ───────────────────────────────────────────── */
+
+@keyframes bikita-fade-up {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes bikita-pulse-ring {
+  0%   { transform: scale(1);   opacity: 0.5; }
+  100% { transform: scale(2.4); opacity: 0;   }
+}
+
+/* Reduced motion override — spec §10.1 */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

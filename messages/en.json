@@ -1,0 +1,230 @@
+{
+  "common": {
+    "appName": "Bikita RDC",
+    "appTagline": "Unified Digital Services",
+    "demoBanner": "DEMO — Not a live service. Do not enter real personal data.",
+    "login": "Log in",
+    "logout": "Log out",
+    "register": "Register",
+    "getStarted": "Get started",
+    "learnMore": "Learn more",
+    "seeAll": "See all",
+    "back": "Back",
+    "next": "Next",
+    "continue": "Continue",
+    "cancel": "Cancel",
+    "submit": "Submit",
+    "search": "Search",
+    "loading": "Loading…",
+    "required": "Required",
+    "optional": "Optional",
+    "live": "Live",
+    "new": "New",
+    "language": "Language",
+    "english": "English",
+    "shona": "Shona"
+  },
+  "nav": {
+    "services": "Services",
+    "payRates": "Pay Rates",
+    "transparency": "Transparency",
+    "news": "News",
+    "contact": "Contact",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu"
+  },
+  "landing": {
+    "hero": {
+      "eyebrow": "Bikita Rural District Council",
+      "headline": "Your council.",
+      "headlineAccent": "In your pocket.",
+      "rotating": {
+        "0": "Pay rates.",
+        "1": "Apply for permits.",
+        "2": "Report issues.",
+        "3": "Track your bills.",
+        "4": "Download receipts."
+      },
+      "subtitle": "A single place for residents and staff to pay, apply, report and stay informed — from your phone, in English or Shona.",
+      "ctaPrimary": "Log in",
+      "ctaSecondary": "Explore services",
+      "trustNoAccount": "Open access to services",
+      "trustOffline": "Works offline",
+      "trustBilingual": "English & Shona"
+    },
+    "stats": {
+      "title": "Transparency, live.",
+      "subtitle": "Key council metrics, refreshed every 30 seconds.",
+      "collected": "Rates collected this month",
+      "resolved": "Service requests resolved",
+      "licences": "Licences issued this year",
+      "projects": "Active ward projects"
+    },
+    "services": {
+      "title": "Everything you need from the council.",
+      "subtitle": "Choose a service. No account needed to browse.",
+      "rates": {
+        "title": "Rates & Payments",
+        "desc": "Check balances and pay via EcoCash, OneMoney or card."
+      },
+      "businessLicence": {
+        "title": "Business Licence",
+        "desc": "Apply for a new licence, renew, or transfer ownership."
+      },
+      "buildingPlans": {
+        "title": "Building Plans",
+        "desc": "Submit plans and track approval, online."
+      },
+      "report": {
+        "title": "Report an Issue",
+        "desc": "Broken boreholes, potholes, refuse — logged with photo and GPS."
+      },
+      "documents": {
+        "title": "My Documents",
+        "desc": "Receipts, certificates and clearances in one vault."
+      },
+      "transparency": {
+        "title": "Transparency",
+        "desc": "Budget, tenders, meetings, by-laws — all public."
+      }
+    },
+    "transparency": {
+      "title": "Where your money goes.",
+      "subtitle": "Ward-level budget, collected vs spent. Updated monthly.",
+      "legendCollected": "Collected",
+      "legendSpent": "Spent",
+      "viewBudget": "View full budget",
+      "links": {
+        "tenders": "Active tenders",
+        "meetings": "Council meetings",
+        "bylaws": "By-laws library"
+      }
+    },
+    "news": {
+      "title": "News & public notices",
+      "subtitle": "Stay up to date with announcements from the council.",
+      "seeAll": "See all notices"
+    },
+    "wards": {
+      "title": "Building Bikita, ward by ward.",
+      "subtitle": "Active capital projects across the district.",
+      "progress": "Progress"
+    },
+    "cta": {
+      "title": "Get started in 2 minutes.",
+      "subtitle": "Register with your national ID and phone number — no paperwork.",
+      "primary": "Create my account",
+      "secondary": "I already have an account"
+    },
+    "footer": {
+      "tagline": "Bikita Rural District Council — a public service portal built for residents, staff and councillors.",
+      "services": "Services",
+      "council": "The Council",
+      "legal": "Legal",
+      "connect": "Connect",
+      "rightsReserved": "All rights reserved.",
+      "version": "Demo v0.1",
+      "links": {
+        "about": "About the council",
+        "councillors": "Councillors",
+        "wards": "Wards",
+        "meetings": "Meetings",
+        "careers": "Careers",
+        "privacy": "Privacy policy",
+        "terms": "Terms of use",
+        "accessibility": "Accessibility",
+        "dataProtection": "Data Protection Act",
+        "phone": "Call centre",
+        "whatsapp": "WhatsApp",
+        "email": "Email"
+      }
+    }
+  },
+  "auth": {
+    "login": {
+      "title": "Welcome back",
+      "subtitle": "Log in to manage your rates, applications and requests.",
+      "emailLabel": "Email or phone",
+      "emailPlaceholder": "tendai@demo.bikita",
+      "passwordLabel": "Password",
+      "passwordPlaceholder": "Demo1234",
+      "forgot": "Forgot password?",
+      "submit": "Log in",
+      "noAccount": "Don't have an account?",
+      "register": "Create one",
+      "invalid": "Invalid email or password. Try one of the demo accounts below.",
+      "demoHint": "Demo credentials",
+      "demoResident": "Resident",
+      "demoClerk": "Rates Clerk",
+      "demoBoth": "Dual-role"
+    },
+    "register": {
+      "title": "Create your account",
+      "subtitle": "Takes 2 minutes. No paperwork.",
+      "step1": "Identity",
+      "step2": "Verify phone",
+      "step3": "Set password",
+      "idLabel": "National ID number",
+      "idPlaceholder": "00-123456K00",
+      "phoneLabel": "Mobile number",
+      "phonePlaceholder": "+263 77 123 4567",
+      "fullNameLabel": "Full name",
+      "fullNamePlaceholder": "Tendai Moyo",
+      "otpLabel": "6-digit code",
+      "otpHelper": "Enter the code we sent to your phone.",
+      "otpDemoHint": "Demo: any 6-digit code works except 000000.",
+      "passwordLabel": "Create password",
+      "confirmPasswordLabel": "Confirm password",
+      "termsLabel": "I agree to the terms of use and privacy policy.",
+      "submit": "Create account",
+      "otpError": "That code doesn't match. Please try again.",
+      "passwordMismatch": "Passwords do not match.",
+      "passwordWeak": "Password must be at least 8 characters.",
+      "success": "Account created. Please log in."
+    },
+    "chooseRole": {
+      "title": "Welcome back, Tendai.",
+      "subtitle": "You have both a resident and a staff account. Which one today?",
+      "resident": "Resident",
+      "residentDesc": "Pay rates, apply for services, track requests.",
+      "staff": "Staff",
+      "staffDesc": "ERP dashboard, residents, reconciliation, service requests.",
+      "rememberChoice": "Remember my choice"
+    }
+  },
+  "errors": {
+    "notFound": {
+      "title": "We couldn't find that page.",
+      "subtitle": "The link may be broken, or the page may have moved.",
+      "goHome": "Go to home",
+      "services": "Browse services"
+    },
+    "serverError": {
+      "title": "Something went wrong on our side.",
+      "subtitle": "We've logged the error and will look into it. Try again in a moment.",
+      "retry": "Try again",
+      "goHome": "Go to home"
+    },
+    "offline": {
+      "title": "You're offline.",
+      "subtitle": "We cached your last statement and receipt so you can still check them. We'll sync the rest as soon as you're back.",
+      "retry": "Try reconnecting"
+    }
+  },
+  "portal": {
+    "stub": {
+      "title": "Citizen portal",
+      "subtitle": "Dashboard, property details, payments, applications and service requests live here.",
+      "comingSoon": "Coming in the next milestone",
+      "back": "Back to landing"
+    }
+  },
+  "erp": {
+    "stub": {
+      "title": "Staff ERP",
+      "subtitle": "KPIs, resident directory, payment reconciliation, applications kanban and service-requests map live here.",
+      "comingSoon": "Coming in the next milestone",
+      "back": "Back to landing"
+    }
+  }
+}

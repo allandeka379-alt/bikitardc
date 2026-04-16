@@ -1,0 +1,4 @@
+User-agent: *
+Disallow: /
+
+# Demo preview — indexing is disabled at metadata level too.
