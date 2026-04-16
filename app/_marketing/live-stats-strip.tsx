@@ -60,9 +60,9 @@ export function LiveStatsStrip() {
   });
 
   return (
-    <section className="relative mx-auto max-w-[1200px] px-5 pt-14 sm:px-8 sm:pt-20">
+    <section className="relative mx-auto max-w-[1200px] px-5 pt-10 sm:px-8 sm:pt-14">
       <ScrollReveal>
-        <div className="mb-8 flex items-end justify-between gap-4">
+        <div className="mb-6 flex items-end justify-between gap-4">
           <div>
             <div className="mb-2 inline-flex items-center gap-2 text-micro font-semibold uppercase tracking-[0.12em] text-success">
               <span className="relative inline-block h-1.5 w-1.5 rounded-full bg-success pulse-dot" />

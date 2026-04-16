@@ -37,9 +37,9 @@ export function VisitBikita() {
     .filter((a): a is NonNullable<typeof a> => !!a);
 
   return (
-    <section className="mx-auto mt-20 max-w-[1200px] px-5 sm:mt-28 sm:px-8">
+    <section className="mx-auto mt-12 max-w-[1200px] px-5 sm:mt-16 sm:px-8">
       <ScrollReveal>
-        <div className="mb-10 flex flex-wrap items-end justify-between gap-4">
+        <div className="mb-6 flex flex-wrap items-end justify-between gap-4">
           <div className="max-w-2xl">
             <h2 className="text-h2 text-ink sm:text-[2rem] sm:leading-[2.5rem]">{t('title')}</h2>
             <p className="mt-3 text-body text-muted">{t('subtitle')}</p>

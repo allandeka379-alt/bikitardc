@@ -46,7 +46,7 @@ export function TransparencySection() {
   return (
     <section
       id="transparency"
-      className="mx-auto max-w-[1200px] px-5 pt-20 sm:px-8 sm:pt-24"
+      className="mx-auto max-w-[1200px] px-5 pt-12 sm:px-8 sm:pt-16"
     >
       <div className="grid gap-8 lg:grid-cols-[1.35fr_1fr]">
         <ScrollReveal>

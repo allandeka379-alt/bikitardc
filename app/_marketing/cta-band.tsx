@@ -8,9 +8,9 @@ export function CtaBand() {
   const t = useTranslations('landing.cta');
 
   return (
-    <section className="mx-auto mt-24 max-w-[1200px] px-5 sm:mt-32 sm:px-8">
+    <section className="mx-auto mt-14 max-w-[1200px] px-5 sm:mt-20 sm:px-8">
       <ScrollReveal>
-        <div className="relative isolate overflow-hidden rounded-xl bg-brand-primary px-6 py-10 shadow-card-lg sm:px-10 sm:py-14">
+        <div className="relative isolate overflow-hidden rounded-xl bg-brand-primary px-6 py-8 shadow-card-lg sm:px-10 sm:py-10">
           {/* Gold accent glow */}
           <div
             aria-hidden

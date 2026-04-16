@@ -10,8 +10,8 @@ export function LandingFooter() {
   const t = useTranslations('landing.footer');
 
   return (
-    <footer className="mt-24 border-t border-line bg-white sm:mt-32">
-      <div className="mx-auto max-w-[1200px] px-5 py-14 sm:px-8 sm:py-20">
+    <footer className="mt-14 border-t border-line bg-white sm:mt-20">
+      <div className="mx-auto max-w-[1200px] px-5 py-10 sm:px-8 sm:py-12">
         <div className="grid grid-cols-2 gap-10 md:grid-cols-5">
           {/* Brand column */}
           <div className="col-span-2 flex flex-col gap-4">

@@ -52,7 +52,7 @@ export function HeroCarousel({
 
   return (
     <div className={cn('flex flex-col', className)}>
-      <div className="relative min-h-[260px] sm:min-h-[300px] lg:min-h-[340px]">
+      <div className="relative min-h-[320px] sm:min-h-[340px] lg:min-h-[340px]">
         {slides.map((s, i) => (
           <div
             key={s.key}

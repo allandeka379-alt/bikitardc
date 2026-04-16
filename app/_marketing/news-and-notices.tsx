@@ -31,9 +31,9 @@ export function NewsAndNotices() {
   const { data: items = [] } = useQuery({ queryKey: ['public-news'], queryFn: fetchNews });
 
   return (
-    <section id="news" className="mx-auto max-w-[1200px] px-5 pt-20 sm:px-8 sm:pt-24">
+    <section id="news" className="mx-auto max-w-[1200px] px-5 pt-12 sm:px-8 sm:pt-16">
       <ScrollReveal>
-        <div className="mb-8 flex flex-wrap items-end justify-between gap-3">
+        <div className="mb-6 flex flex-wrap items-end justify-between gap-3">
           <div>
             <h2 className="text-h2 text-ink sm:text-[2rem] sm:leading-[2.5rem]">{t('title')}</h2>
             <p className="mt-2 max-w-xl text-body text-muted">{t('subtitle')}</p>

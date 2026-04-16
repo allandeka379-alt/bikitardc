@@ -36,9 +36,9 @@ export function ServicesGrid() {
   const t = useTranslations('landing.services');
 
   return (
-    <section id="services" className="mx-auto max-w-[1200px] px-5 pt-20 sm:px-8 sm:pt-24">
+    <section id="services" className="mx-auto max-w-[1200px] px-5 pt-12 sm:px-8 sm:pt-16">
       <ScrollReveal>
-        <div className="mb-10 max-w-2xl">
+        <div className="mb-6 max-w-2xl">
           <h2 className="text-h2 text-ink sm:text-[2rem] sm:leading-[2.5rem]">{t('title')}</h2>
           <p className="mt-3 text-body text-muted">{t('subtitle')}</p>
         </div>

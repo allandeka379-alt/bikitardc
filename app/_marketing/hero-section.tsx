@@ -184,12 +184,12 @@ export function HeroSection() {
         <div className="absolute inset-0 bg-grain opacity-40 mix-blend-multiply" />
       </div>
 
-      <div className="relative mx-auto max-w-[1200px] px-5 pb-24 pt-8 sm:px-8 sm:pb-32 sm:pt-12 lg:pb-40 lg:pt-16">
+      <div className="relative mx-auto max-w-[1200px] px-5 pb-10 pt-6 sm:px-8 sm:pb-14 sm:pt-8 lg:pb-20 lg:pt-12">
         <div className="max-w-2xl">
           <HeroCarousel slides={slides} intervalMs={6000} />
 
           {/* CTAs */}
-          <div className="mt-8 flex flex-wrap items-center gap-3">
+          <div className="mt-5 flex flex-wrap items-center gap-3">
             <Button
               asChild
               size="lg"
@@ -204,7 +204,7 @@ export function HeroSection() {
           </div>
 
           {/* Trust bullets */}
-          <ul className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-2 text-small text-muted">
+          <ul className="mt-5 flex flex-wrap items-center gap-x-6 gap-y-2 text-small text-muted">
             <Bullet>{t('trustNoAccount')}</Bullet>
             <Bullet>{t('trustOffline')}</Bullet>
             <Bullet>{t('trustBilingual')}</Bullet>
