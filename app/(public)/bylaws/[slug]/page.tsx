@@ -6,10 +6,10 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { formatDate } from '@/lib/format';
-import { BYLAW_CATEGORY_LABEL, findBylaw } from '@/mocks/fixtures/bylaws';
+import { BYLAWS, BYLAW_CATEGORY_LABEL, findBylaw } from '@/mocks/fixtures/bylaws';
 
 export function generateStaticParams() {
-  return [];
+  return BYLAWS.map((b) => ({ slug: b.slug }));
 }
 
 export default async function BylawDetailPage({ params }: { params: Promise<{ slug: string }> }) {

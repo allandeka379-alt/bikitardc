@@ -26,7 +26,8 @@ export const metadata: Metadata = {
     icon: [
       { url: '/favicon.svg', type: 'image/svg+xml' },
     ],
-    apple: [{ url: '/icon-192.png', sizes: '192x192' }],
+    apple: [{ url: '/icon-192.svg', type: 'image/svg+xml' }],
+    shortcut: [{ url: '/favicon.svg', type: 'image/svg+xml' }],
   },
   openGraph: {
     title: 'Bikita RDC — Unified Digital Services',
