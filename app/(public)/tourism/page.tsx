@@ -76,43 +76,67 @@ export default function TourismPage() {
       <section className="mx-auto max-w-[1200px] px-5 pb-20 sm:px-8">
         <h2 className="text-h3 text-ink">Where to stay</h2>
         <p className="mt-1 text-small text-muted">
-          Four registered guesthouses across the district. All are licensed with the council.
+          Registered guesthouses across the district. All are licensed with the council.
         </p>
         <ul className="mt-4 grid gap-3 md:grid-cols-2">
           {GUESTHOUSES.map((g, i) => (
             <li key={g.id}>
               <ScrollReveal delay={i * 40}>
-                <Card className="h-full p-5">
-                  <div className="flex items-start justify-between gap-3">
-                    <div>
-                      <h3 className="text-body font-semibold text-ink">{g.name}</h3>
-                      <p className="mt-0.5 text-micro text-muted">{g.ward} ward</p>
+                <Card className="group h-full overflow-hidden transition-shadow duration-base ease-out-expo hover:shadow-card-md">
+                  {g.imageUrl && (
+                    <div className="relative aspect-[16/9] w-full overflow-hidden bg-surface">
+                      <Image
+                        src={g.imageUrl}
+                        alt=""
+                        fill
+                        sizes="(max-width: 768px) 100vw, 50vw"
+                        className="object-cover transition-transform duration-slow ease-out-expo group-hover:scale-[1.03]"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
+                      <span
+                        className={cn(
+                          'absolute right-3 top-3 rounded-full px-2.5 py-0.5 text-micro font-semibold capitalize shadow-card-sm',
+                          TIER_STYLE[g.tier],
+                        )}
+                      >
+                        {TIER_LABEL[g.tier]}
+                      </span>
                     </div>
-                    <span
-                      className={cn(
-                        'rounded-full px-2 py-0.5 text-micro font-semibold capitalize',
-                        TIER_STYLE[g.tier],
+                  )}
+                  <div className="p-5">
+                    <div className="flex items-start justify-between gap-3">
+                      <div>
+                        <h3 className="text-body font-semibold text-ink">{g.name}</h3>
+                        <p className="mt-0.5 text-micro text-muted">{g.ward} ward</p>
+                      </div>
+                      {!g.imageUrl && (
+                        <span
+                          className={cn(
+                            'rounded-full px-2 py-0.5 text-micro font-semibold capitalize',
+                            TIER_STYLE[g.tier],
+                          )}
+                        >
+                          {TIER_LABEL[g.tier]}
+                        </span>
                       )}
-                    >
-                      {TIER_LABEL[g.tier]}
-                    </span>
-                  </div>
-                  <p className="mt-3 text-small text-muted">{g.blurb}</p>
-                  <div className="mt-4 flex flex-wrap items-center justify-between gap-2 border-t border-line pt-3 text-micro">
-                    <span className="inline-flex items-center gap-1.5 text-muted">
-                      <Users className="h-3.5 w-3.5" />
-                      {g.rooms} rooms
-                    </span>
-                    <span className="tabular-nums text-ink">
-                      From <span className="font-semibold">${g.nightlyUsdFrom}</span>/night
-                    </span>
-                    <a
-                      href={`tel:${g.phone.replace(/\s+/g, '')}`}
-                      className="inline-flex items-center gap-1.5 text-brand-primary hover:underline"
-                    >
-                      <Phone className="h-3.5 w-3.5" />
-                      {g.phone}
-                    </a>
+                    </div>
+                    <p className="mt-3 text-small text-muted">{g.blurb}</p>
+                    <div className="mt-4 flex flex-wrap items-center justify-between gap-2 border-t border-line pt-3 text-micro">
+                      <span className="inline-flex items-center gap-1.5 text-muted">
+                        <Users className="h-3.5 w-3.5" />
+                        {g.rooms} rooms
+                      </span>
+                      <span className="tabular-nums text-ink">
+                        From <span className="font-semibold">${g.nightlyUsdFrom}</span>/night
+                      </span>
+                      <a
+                        href={`tel:${g.phone.replace(/\s+/g, '')}`}
+                        className="inline-flex items-center gap-1.5 text-brand-primary hover:underline"
+                      >
+                        <Phone className="h-3.5 w-3.5" />
+                        {g.phone}
+                      </a>
+                    </div>
                   </div>
                 </Card>
               </ScrollReveal>

@@ -18,7 +18,9 @@ export type PaymentChannel =
   | 'bank'
   | 'cash'
   | 'mastercard'
-  | 'mukuru';
+  | 'mukuru'
+  | 'telecash'
+  | 'visa';
 
 export type PaymentStatus = 'succeeded' | 'failed' | 'pending';
 
@@ -45,6 +47,8 @@ export const CHANNEL_LABEL: Record<PaymentChannel, string> = {
   cash: 'Cash receipt',
   mastercard: 'Visa / Mastercard (Diaspora)',
   mukuru: 'Mukuru',
+  telecash: 'Telecash',
+  visa: 'Visa',
 };
 
 export const TRANSACTIONS: Transaction[] = [

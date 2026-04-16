@@ -311,6 +311,8 @@ function formatChannel(ch: Transaction['channel']): string {
     cash: 'Cash receipt',
     mastercard: 'Visa / Mastercard',
     mukuru: 'Mukuru',
+    telecash: 'Telecash',
+    visa: 'Visa',
   };
   return map[ch];
 }

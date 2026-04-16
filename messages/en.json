@@ -105,8 +105,49 @@
       "subtitle": "Stay up to date with announcements from the council.",
       "seeAll": "See all notices"
     },
+    "building": {
+      "eyebrow": "Building Bikita",
+      "title": "Infrastructure that is already on the ground.",
+      "subtitle": "Solar-powered traffic signals, newly graded carriageways, streetlights that run on sunshine — the district is being rebuilt in plain sight.",
+      "caption1": {
+        "badge": "Solar-powered",
+        "title": "Kamungoma junction traffic signals",
+        "body": "Zimbabwe\u2019s first solar-powered intersection control — running day and night, fully off-grid."
+      },
+      "caption2": {
+        "badge": "New road",
+        "title": "Kamungoma dual carriageway",
+        "body": "Dual-lane upgrade with solar street-lighting, improving travel times and night-time safety."
+      },
+      "kpi": {
+        "label": "Projects delivered or live in 2026",
+        "unit": "capital works",
+        "body": "Across roads, water, clinics and rural electrification — all tracked openly on the transparency dashboard."
+      },
+      "h1": {
+        "title": "Off-grid signals",
+        "body": "Traffic lights and street lighting powered by solar with battery storage — resilient to load-shedding."
+      },
+      "h2": {
+        "title": "Signage & safety",
+        "body": "Retro-reflective signage, pedestrian crossings and rumble strips rolled out along upgraded corridors."
+      },
+      "h3": {
+        "title": "Rural electrification",
+        "body": "Solar mini-grids for rural clinics, schools and council service points in hard-to-reach wards."
+      },
+      "h4": {
+        "title": "Road network",
+        "body": "Graded feeder roads, reinforced culverts and the Kamungoma carriageway upgrade \u2014 all delivered in-district."
+      },
+      "cta": {
+        "title": "See every project, every ward, every dollar.",
+        "body": "Budget, spend and progress updates are published monthly.",
+        "button": "Open transparency dashboard"
+      }
+    },
     "wards": {
-      "title": "Building Bikita, ward by ward.",
+      "title": "Ward projects at a glance.",
       "subtitle": "Active capital projects across the district.",
       "progress": "Progress"
     },
