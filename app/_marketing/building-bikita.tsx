@@ -1,33 +1,77 @@
 // ─────────────────────────────────────────────
-// Building Bikita — infrastructure showcase on
-// the landing page. Highlights real works in the
-// district (solar traffic lights, new roads,
-// solar street-lighting, rural connectivity).
+// Building Bikita — infrastructure project grid
+// on the landing page.
 //
-// Photos live at /public/building/*. The main two
-// images come from Council photography:
-//   • solar-traffic-lights.jpg — Kamungoma junction
-//   • kamungoma-road.jpg       — new dual carriageway
+// Uses the same card style as WardSpotlight so the
+// two sections sit side-by-side visually: image on
+// top with a ward-style pin chip, title + body
+// below, and an accent progress bar when the
+// project is in-flight.
 // ─────────────────────────────────────────────
 
-import { ArrowRight, Sun, Signpost, Zap, Route } from 'lucide-react';
+import { MapPin } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
-import Link from 'next/link';
 import { ScrollReveal } from '@/components/motion/scroll-reveal';
-import { Button } from '@/components/ui/button';
 
-interface Highlight {
-  icon: React.ReactNode;
+interface Project {
+  id: string;
   titleKey: string;
   bodyKey: string;
+  location: string;
+  imageUrl: string;
+  progress: number;
 }
 
-const HIGHLIGHTS: Highlight[] = [
-  { icon: <Sun className="h-4 w-4" />,      titleKey: 'h1.title', bodyKey: 'h1.body' },
-  { icon: <Signpost className="h-4 w-4" />, titleKey: 'h2.title', bodyKey: 'h2.body' },
-  { icon: <Zap className="h-4 w-4" />,      titleKey: 'h3.title', bodyKey: 'h3.body' },
-  { icon: <Route className="h-4 w-4" />,    titleKey: 'h4.title', bodyKey: 'h4.body' },
+const PROJECTS: Project[] = [
+  {
+    id: 'p_kamungoma_signals',
+    titleKey: 'p1.title',
+    bodyKey: 'p1.body',
+    location: 'Kamungoma',
+    imageUrl: '/building/solar-traffic-lights.jpg',
+    progress: 100,
+  },
+  {
+    id: 'p_kamungoma_road',
+    titleKey: 'p2.title',
+    bodyKey: 'p2.body',
+    location: 'Kamungoma',
+    imageUrl: '/building/kamungoma-road.jpg',
+    progress: 95,
+  },
+  {
+    id: 'p_solar_streetlights',
+    titleKey: 'p3.title',
+    bodyKey: 'p3.body',
+    location: 'District-wide',
+    imageUrl: '/tourism/zizhou-dam.jpg',
+    progress: 72,
+  },
+  {
+    id: 'p_rural_electrification',
+    titleKey: 'p4.title',
+    bodyKey: 'p4.body',
+    location: 'Silveira / Bota',
+    imageUrl: '/tourism/hanyanya-mountain.jpg',
+    progress: 58,
+  },
+  {
+    id: 'p_dam_rehab',
+    titleKey: 'p5.title',
+    bodyKey: 'p5.body',
+    location: 'Nhema / Mupani',
+    imageUrl: '/tourism/siya-dam.jpg',
+    progress: 40,
+  },
+  {
+    id: 'p_signage',
+    titleKey: 'p6.title',
+    bodyKey: 'p6.body',
+    location: 'Corridor upgrades',
+    imageUrl: '/tourism/chibvumani-monument.jpg',
+    progress: 30,
+  },
 ];
 
 export function BuildingBikita() {
@@ -39,121 +83,57 @@ export function BuildingBikita() {
       className="mx-auto mt-20 max-w-[1200px] px-5 sm:mt-28 sm:px-8"
     >
       <ScrollReveal>
-        <div className="mb-8 max-w-2xl sm:mb-12">
-          <div className="mb-3 inline-flex items-center gap-2 rounded-full border border-brand-accent/30 bg-brand-accent/10 px-3 py-1 text-micro font-semibold uppercase tracking-[0.12em] text-[#8a6e13]">
-            <span className="relative inline-block h-1.5 w-1.5 rounded-full bg-brand-accent pulse-dot" />
-            {t('eyebrow')}
-          </div>
+        <div className="mb-10 max-w-2xl">
           <h2 className="text-h2 text-ink sm:text-[2rem] sm:leading-[2.5rem]">{t('title')}</h2>
           <p className="mt-3 text-body text-muted">{t('subtitle')}</p>
         </div>
       </ScrollReveal>
 
-      {/* Media grid */}
-      <div className="grid gap-4 md:grid-cols-5">
-        {/* Hero photo — solar traffic lights */}
-        <ScrollReveal className="md:col-span-3">
-          <figure className="group relative aspect-[4/3] w-full overflow-hidden rounded-xl border border-line bg-surface shadow-card-sm transition-shadow duration-base ease-out-expo hover:shadow-card-md md:aspect-[5/4]">
-            <Image
-              src="/building/solar-traffic-lights.jpg"
-              alt="Solar-powered traffic lights at the Kamungoma junction, Bikita"
-              fill
-              sizes="(max-width: 768px) 100vw, 60vw"
-              className="object-cover transition-transform duration-slow ease-out-expo group-hover:scale-[1.02]"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-ink/70 via-ink/10 to-transparent" />
-            <figcaption className="absolute inset-x-0 bottom-0 p-5 sm:p-6">
-              <div className="inline-flex items-center gap-2 rounded-full bg-brand-accent/95 px-3 py-1 text-micro font-bold uppercase tracking-[0.1em] text-brand-ink">
-                <Sun className="h-3 w-3" />
-                {t('caption1.badge')}
+      <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+        {PROJECTS.map((p, i) => (
+          <ScrollReveal key={p.id} delay={i * 80}>
+            <article className="group relative flex h-full flex-col overflow-hidden rounded-lg border border-line bg-card shadow-card-sm transition-shadow duration-base ease-out-expo hover:shadow-card-md">
+              <div className="relative aspect-[16/10] w-full overflow-hidden bg-surface">
+                <Image
+                  src={p.imageUrl}
+                  alt=""
+                  fill
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 33vw, 400px"
+                  className="object-cover transition-transform duration-slow ease-out-expo group-hover:scale-[1.03]"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/45 via-black/5 to-transparent" />
+                <div className="absolute bottom-3 left-3 inline-flex items-center gap-1.5 rounded-full bg-white/95 px-2.5 py-1 text-micro font-semibold text-brand-primary shadow-card-sm">
+                  <MapPin className="h-3 w-3" aria-hidden />
+                  {p.location}
+                </div>
               </div>
-              <div className="mt-3 text-h3 font-semibold text-white sm:text-[1.35rem]">
-                {t('caption1.title')}
-              </div>
-              <div className="mt-1 max-w-md text-small text-white/85">
-                {t('caption1.body')}
-              </div>
-            </figcaption>
-          </figure>
-        </ScrollReveal>
+              <div className="flex flex-1 flex-col gap-3 p-5">
+                <h3 className="text-body font-semibold leading-snug text-ink">{t(p.titleKey)}</h3>
+                <p className="text-micro text-muted">{t(p.bodyKey)}</p>
 
-        {/* Side column — road + highlight list */}
-        <div className="flex flex-col gap-4 md:col-span-2">
-          <ScrollReveal delay={80}>
-            <figure className="group relative aspect-[4/3] w-full overflow-hidden rounded-xl border border-line bg-surface shadow-card-sm transition-shadow duration-base ease-out-expo hover:shadow-card-md">
-              <Image
-                src="/building/kamungoma-road.jpg"
-                alt="Newly constructed dual carriageway in Bikita with solar street-lighting"
-                fill
-                sizes="(max-width: 768px) 100vw, 40vw"
-                className="object-cover transition-transform duration-slow ease-out-expo group-hover:scale-[1.02]"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-ink/65 via-ink/5 to-transparent" />
-              <figcaption className="absolute inset-x-0 bottom-0 p-4 sm:p-5">
-                <div className="inline-flex items-center gap-2 rounded-full bg-white/95 px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-[0.1em] text-brand-primary">
-                  <Route className="h-3 w-3" />
-                  {t('caption2.badge')}
+                <div className="mt-auto">
+                  <div className="mb-1.5 flex items-center justify-between text-micro">
+                    <span className="text-muted">{t('progress')}</span>
+                    <span className="font-semibold tabular-nums text-ink">{p.progress}%</span>
+                  </div>
+                  <div
+                    role="progressbar"
+                    aria-valuenow={p.progress}
+                    aria-valuemin={0}
+                    aria-valuemax={100}
+                    className="h-1.5 w-full overflow-hidden rounded-full bg-surface"
+                  >
+                    <span
+                      className="block h-full rounded-full bg-gradient-to-r from-brand-primary to-brand-accent transition-[width] duration-slow ease-out-expo"
+                      style={{ width: `${p.progress}%` }}
+                    />
+                  </div>
                 </div>
-                <div className="mt-2 text-body font-semibold text-white">
-                  {t('caption2.title')}
-                </div>
-                <div className="mt-0.5 text-micro text-white/80">
-                  {t('caption2.body')}
-                </div>
-              </figcaption>
-            </figure>
-          </ScrollReveal>
-
-          {/* KPI chip */}
-          <ScrollReveal delay={150}>
-            <div className="rounded-xl border border-line bg-card p-5 shadow-card-sm">
-              <div className="text-micro font-semibold uppercase tracking-wider text-muted">
-                {t('kpi.label')}
               </div>
-              <div className="mt-1 flex items-baseline gap-2">
-                <div className="text-display font-bold tabular-nums text-brand-primary sm:text-h1">
-                  12
-                </div>
-                <div className="text-small text-muted">{t('kpi.unit')}</div>
-              </div>
-              <p className="mt-2 text-small text-muted">{t('kpi.body')}</p>
-            </div>
+            </article>
           </ScrollReveal>
-        </div>
+        ))}
       </div>
-
-      {/* Highlight row */}
-      <ScrollReveal delay={120}>
-        <ul className="mt-6 grid gap-2.5 sm:grid-cols-2 lg:grid-cols-4">
-          {HIGHLIGHTS.map((h) => (
-            <li
-              key={h.titleKey}
-              className="flex items-start gap-3 rounded-lg border border-line bg-card p-4 transition-all duration-base ease-out-expo hover:-translate-y-0.5 hover:border-brand-primary/25 hover:shadow-card-sm"
-            >
-              <span className="grid h-8 w-8 shrink-0 place-items-center rounded-md bg-brand-primary/10 text-brand-primary">
-                {h.icon}
-              </span>
-              <div className="min-w-0">
-                <div className="text-small font-semibold text-ink">{t(h.titleKey)}</div>
-                <p className="mt-0.5 text-micro text-muted">{t(h.bodyKey)}</p>
-              </div>
-            </li>
-          ))}
-        </ul>
-      </ScrollReveal>
-
-      {/* CTA */}
-      <ScrollReveal delay={200}>
-        <div className="mt-8 flex flex-wrap items-center justify-between gap-3 rounded-xl border border-brand-primary/15 bg-brand-primary/5 px-5 py-4 sm:px-6 sm:py-5">
-          <div>
-            <div className="text-body font-semibold text-ink">{t('cta.title')}</div>
-            <p className="text-small text-muted">{t('cta.body')}</p>
-          </div>
-          <Button asChild variant="primary" trailingIcon={<ArrowRight className="h-4 w-4" />}>
-            <Link href="/transparency">{t('cta.button')}</Link>
-          </Button>
-        </div>
-      </ScrollReveal>
     </section>
   );
 }

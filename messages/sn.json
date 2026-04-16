@@ -35,22 +35,57 @@
   },
   "landing": {
     "hero": {
-      "eyebrow": "Kanzuru yeBikita",
-      "headline": "Kanzuru yenyu.",
-      "headlineAccent": "Muhomwe menyu.",
-      "rotating": {
-        "0": "Bhadhara mitero.",
-        "1": "Nyorera mapepa.",
-        "2": "Shuma matambudziko.",
-        "3": "Ona mabhiri.",
-        "4": "Dhawunirodha rizisi."
+      "pay": {
+        "line1": "Pay your rates with",
+        "body": "EcoCash, OneMoney, Paynow, Visa, Mastercard, ZimSwitch or Telecash. Confirmation SMS in seconds."
       },
-      "subtitle": "Nzvimbo imwe yevanhu nevashandi kuti vabhadhare, vakumbire, vashume uye vave neruzivo — kubva pafoni, muChirungu kana ChiShona.",
-      "ctaPrimary": "Pinda",
-      "ctaSecondary": "Tarisa masevhisi",
-      "trustNoAccount": "Wanikwa kumasevhisi",
-      "trustOffline": "Inoshanda pasina internet",
-      "trustBilingual": "Chirungu neChiShona"
+      "apply": {
+        "line1": "Apply for a licence.",
+        "line2": "Finished in minutes.",
+        "body": "Business, building, trading and clearance applications — submitted, tracked and paid for online.",
+        "chips": {
+          "business": "Business",
+          "building": "Building plans",
+          "trade": "Trading",
+          "clearance": "Clearance"
+        }
+      },
+      "report": {
+        "line1": "Spot a problem?",
+        "line2": "Report it in 30 seconds.",
+        "body": "Take a photo, drop a pin, tell us what is wrong. The right council team gets it on their queue instantly.",
+        "chips": {
+          "water": "Water",
+          "road": "Roads",
+          "refuse": "Refuse",
+          "power": "Power",
+          "photo": "Photo + GPS"
+        }
+      },
+      "documents": {
+        "line1": "Your receipts & certificates.",
+        "line2": "One vault, any time.",
+        "body": "Rates receipts, permits and clearance certificates — QR-verifiable by any counter-officer or inspector.",
+        "chips": {
+          "receipts": "Receipts",
+          "certs": "Certificates",
+          "qr": "QR-verified"
+        }
+      },
+      "track": {
+        "line1": "Track every ward project.",
+        "line2": "Every dollar.",
+        "body": "Live dashboards show collections, spend and progress across the district \u2014 published every month.",
+        "chips": {
+          "live": "Live dashboards",
+          "realtime": "Updated monthly"
+        }
+      },
+      "ctaPrimary": "Log in",
+      "ctaSecondary": "Explore services",
+      "trustNoAccount": "Open access to services",
+      "trustOffline": "Works offline",
+      "trustBilingual": "English & Shona"
     },
     "stats": {
       "title": "Zvakajeka, nguva ino.",
@@ -106,38 +141,25 @@
       "seeAll": "Ona zviziviso zvose"
     },
     "building": {
-      "eyebrow": "Building Bikita",
-      "title": "Infrastructure that is already on the ground.",
-      "subtitle": "Solar-powered traffic signals, newly graded carriageways, streetlights that run on sunshine — the district is being rebuilt in plain sight.",
-      "caption1": {
-        "badge": "Solar-powered",
-        "title": "Kamungoma junction traffic signals",
-        "body": "Zimbabwe's first solar-powered intersection control — running day and night, fully off-grid."
-      },
-      "caption2": {
-        "badge": "New road",
-        "title": "Kamungoma dual carriageway",
-        "body": "Dual-lane upgrade with solar street-lighting, improving travel times and night-time safety."
-      },
-      "kpi": {
-        "label": "Projects delivered or live in 2026",
-        "unit": "capital works",
-        "body": "Across roads, water, clinics and rural electrification — all tracked openly on the transparency dashboard."
-      },
-      "h1": { "title": "Off-grid signals",        "body": "Traffic lights and street lighting powered by solar with battery storage — resilient to load-shedding." },
-      "h2": { "title": "Signage & safety",        "body": "Retro-reflective signage, pedestrian crossings and rumble strips rolled out along upgraded corridors." },
-      "h3": { "title": "Rural electrification",   "body": "Solar mini-grids for rural clinics, schools and council service points in hard-to-reach wards." },
-      "h4": { "title": "Road network",            "body": "Graded feeder roads, reinforced culverts and the Kamungoma carriageway upgrade — all delivered in-district." },
-      "cta": {
-        "title": "See every project, every ward, every dollar.",
-        "body": "Budget, spend and progress updates are published monthly.",
-        "button": "Open transparency dashboard"
-      }
+      "title": "Building Bikita.",
+      "subtitle": "Solar traffic lights, newly graded carriageways, rural electrification and dam rehabilitation \u2014 real infrastructure already on the ground.",
+      "progress": "Progress",
+      "p1": { "title": "Kamungoma solar traffic signals", "body": "Zimbabwe's first solar-powered intersection control \u2014 running day and night, fully off-grid." },
+      "p2": { "title": "Kamungoma dual carriageway",     "body": "Dual-lane upgrade with solar street-lighting, improving travel times and night-time safety." },
+      "p3": { "title": "Solar street-lighting rollout",  "body": "LED solar streetlights along major corridors and market centres, resilient to load-shedding." },
+      "p4": { "title": "Rural electrification",          "body": "Solar mini-grids for rural clinics, schools and council service points in hard-to-reach wards." },
+      "p5": { "title": "Dam rehabilitation",             "body": "Silting surveys, spillway repairs and fish-stocking programmes across Siya, Rozva and district dams." },
+      "p6": { "title": "Signage & road safety",          "body": "Retro-reflective signage, pedestrian crossings and rumble strips along upgraded corridors." }
     },
     "wards": {
       "title": "Ward projects at a glance.",
       "subtitle": "Mapurojekiti anoitika mumatunhu ose.",
       "progress": "Kuenda mberi"
+    },
+    "visit": {
+      "title": "Visit Bikita.",
+      "subtitle": "Stone-kraal ruins, seasonal waterfalls, a sacred stink-bug forest and Zimbabwe\u2019s largest rural dam \u2014 a small district with a lot to see.",
+      "cta": "Explore all of Bikita"
     },
     "cta": {
       "title": "Tanga mumaminitsi maviri chete.",
