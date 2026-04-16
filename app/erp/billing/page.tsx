@@ -1,41 +1,60 @@
+// ─────────────────────────────────────────────
+// Billing runs — list of every automated billing
+// cycle across the council's revenue sources,
+// grouped by period. Supports creation of a new
+// run via a wizard and drilling into a specific
+// run for approval / posting.
+// ─────────────────────────────────────────────
+
 'use client';
 
-// Billing runs — spec §3.2.
-// Lists scheduled/past runs with a diff-preview
-// pattern (only visual in demo).
-
-import { CalendarClock, CheckCircle2, Clock3, Play, RefreshCw } from 'lucide-react';
+import { Filter, Plus } from 'lucide-react';
+import Link from 'next/link';
+import { useMemo, useState } from 'react';
 import { ScrollReveal } from '@/components/motion/scroll-reveal';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import { formatCurrency, formatDate } from '@/lib/format';
+import {
+  BILLING_RUNS,
+  STATUS_LABEL,
+  STATUS_TONE,
+  type BillingRun,
+  type BillingRunStatus,
+} from '@/mocks/fixtures/billing-runs';
+import { findRevenueSource } from '@/mocks/fixtures/revenue-sources';
+import { cn } from '@/lib/cn';
 
-interface BillingRun {
-  id: string;
-  title: string;
-  scheduled: string;
-  status: 'scheduled' | 'running' | 'completed' | 'failed';
-  records: number;
-  totalUsd: number;
-  diffPct?: number;
-}
-
-const RUNS: BillingRun[] = [
-  { id: 'br_apr',  title: 'April 2026 — Residential rates',      scheduled: '2026-04-01', status: 'completed', records: 1_540, totalUsd: 85_300, diffPct:  +4.2 },
-  { id: 'br_mar',  title: 'March 2026 — Residential rates',      scheduled: '2026-03-01', status: 'completed', records: 1_536, totalUsd: 81_880, diffPct:  +1.8 },
-  { id: 'br_comm', title: 'Q1 2026 — Commercial rates',           scheduled: '2026-01-10', status: 'completed', records:   212, totalUsd: 28_720, diffPct:  +0.5 },
-  { id: 'br_may',  title: 'May 2026 — Residential rates (draft)', scheduled: '2026-05-01', status: 'scheduled', records: 1_548, totalUsd: 87_600, diffPct:  +2.7 },
-  { id: 'br_market', title: 'Q2 2026 — Market stalls',             scheduled: '2026-04-20', status: 'scheduled', records:    86, totalUsd:  2_580 },
-];
-
-const STATUS_TONE: Record<BillingRun['status'], 'success' | 'warning' | 'info' | 'danger'> = {
-  completed: 'success',
-  scheduled: 'warning',
-  running: 'info',
-  failed: 'danger',
-};
+const STATUS_ORDER: BillingRunStatus[] = ['draft', 'approved', 'posted', 'notified', 'failed'];
 
 export default function BillingPage() {
+  const [q, setQ] = useState('');
+  const [status, setStatus] = useState<BillingRunStatus | 'all'>('all');
+
+  const rows = useMemo(() => {
+    let r = [...BILLING_RUNS].sort((a, b) => (a.createdAt < b.createdAt ? 1 : -1));
+    if (status !== 'all') r = r.filter((x) => x.status === status);
+    const ql = q.trim().toLowerCase();
+    if (ql) {
+      r = r.filter((x) => {
+        const source = findRevenueSource(x.source);
+        return (
+          x.id.toLowerCase().includes(ql) ||
+          x.period.toLowerCase().includes(ql) ||
+          x.generatedBy.toLowerCase().includes(ql) ||
+          (source?.label ?? '').toLowerCase().includes(ql)
+        );
+      });
+    }
+    return r;
+  }, [q, status]);
+
+  const draftCount = BILLING_RUNS.filter((r) => r.status === 'draft').length;
+  const approvedCount = BILLING_RUNS.filter((r) => r.status === 'approved').length;
+  const postedCount = BILLING_RUNS.filter((r) => r.status === 'posted' || r.status === 'notified').length;
+
   return (
     <div className="mx-auto max-w-[1280px] px-4 py-6 sm:px-6 sm:py-8 lg:px-10">
       <ScrollReveal>
@@ -43,67 +62,126 @@ export default function BillingPage() {
           <div>
             <h1 className="text-h1 text-ink">Billing runs</h1>
             <p className="mt-1 text-small text-muted">
-              Monthly and quarterly billing jobs. Preview the diff vs the prior period before approving.
+              Automated generation of statements across property rates, unit tax, market fees, CAMPFIRE and more.
             </p>
           </div>
-          <Button leadingIcon={<Play className="h-4 w-4" />}>Queue a run</Button>
+          <Button asChild leadingIcon={<Plus className="h-4 w-4" />}>
+            <Link href="/erp/billing/new">New billing run</Link>
+          </Button>
         </div>
       </ScrollReveal>
 
-      <ul className="grid gap-3 md:grid-cols-2">
-        {RUNS.map((r) => (
-          <li key={r.id}>
-            <Card className="p-5">
-              <div className="mb-2 flex flex-wrap items-center gap-2">
-                <Badge tone={STATUS_TONE[r.status]} dot>
-                  {r.status}
-                </Badge>
-                <span className="inline-flex items-center gap-1 text-micro text-muted">
-                  <CalendarClock className="h-3 w-3" /> {r.scheduled}
-                </span>
-              </div>
-              <h3 className="text-body font-semibold text-ink">{r.title}</h3>
-              <dl className="mt-3 grid grid-cols-3 gap-3 text-small">
-                <div>
-                  <dt className="text-micro text-muted">Records</dt>
-                  <dd className="font-semibold tabular-nums text-ink">{r.records.toLocaleString()}</dd>
-                </div>
-                <div>
-                  <dt className="text-micro text-muted">Projected total</dt>
-                  <dd className="font-semibold tabular-nums text-ink">${r.totalUsd.toLocaleString()}</dd>
-                </div>
-                <div>
-                  <dt className="text-micro text-muted">Δ vs prior</dt>
-                  <dd className="font-semibold tabular-nums text-success">
-                    {typeof r.diffPct === 'number' ? `+${r.diffPct.toFixed(1)}%` : '—'}
-                  </dd>
-                </div>
-              </dl>
-              <div className="mt-4 flex gap-2">
-                {r.status === 'scheduled' ? (
-                  <>
-                    <Button size="sm" variant="secondary" leadingIcon={<Clock3 className="h-3.5 w-3.5" />}>
-                      Preview diff
-                    </Button>
-                    <Button size="sm" leadingIcon={<Play className="h-3.5 w-3.5" />}>
-                      Approve & run
-                    </Button>
-                  </>
-                ) : (
-                  <>
-                    <Button size="sm" variant="secondary" leadingIcon={<CheckCircle2 className="h-3.5 w-3.5" />}>
-                      View invoices
-                    </Button>
-                    <Button size="sm" variant="ghost" leadingIcon={<RefreshCw className="h-3.5 w-3.5" />}>
-                      Re-run
-                    </Button>
-                  </>
-                )}
-              </div>
-            </Card>
-          </li>
-        ))}
-      </ul>
+      <div className="mb-6 grid gap-3 sm:grid-cols-3">
+        <StatusPill label="Draft / awaiting review" count={draftCount} tone="warning" />
+        <StatusPill label="Approved · awaiting post" count={approvedCount} tone="info" />
+        <StatusPill label="Posted this cycle"         count={postedCount}   tone="success" />
+      </div>
+
+      {/* Quick links to related registers */}
+      <div className="mb-6 grid gap-3 sm:grid-cols-3">
+        <Link href="/erp/billing/market-fees"  className="group flex items-center justify-between rounded-lg border border-line bg-card p-4 hover:shadow-card-sm">
+          <span className="text-small font-semibold text-ink group-hover:text-brand-primary">Market stall register</span>
+          <Badge tone="brand">Market fees</Badge>
+        </Link>
+        <Link href="/erp/billing/beer-hall"    className="group flex items-center justify-between rounded-lg border border-line bg-card p-4 hover:shadow-card-sm">
+          <span className="text-small font-semibold text-ink group-hover:text-brand-primary">Beer hall outlets</span>
+          <Badge tone="brand">Beer hall</Badge>
+        </Link>
+        <Link href="/erp/billing/campfire"     className="group flex items-center justify-between rounded-lg border border-line bg-card p-4 hover:shadow-card-sm">
+          <span className="text-small font-semibold text-ink group-hover:text-brand-primary">CAMPFIRE quotas &amp; off-takes</span>
+          <Badge tone="brand">Natural resource</Badge>
+        </Link>
+      </div>
+
+      <Card className="overflow-hidden">
+        <div className="flex flex-wrap items-center gap-3 border-b border-line px-5 py-3">
+          <div className="relative flex-1">
+            <Filter className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted" />
+            <Input
+              placeholder="Search by source, period or user…"
+              className="pl-9"
+              value={q}
+              onChange={(e) => setQ(e.target.value)}
+            />
+          </div>
+          <select
+            value={status}
+            onChange={(e) => setStatus(e.target.value as BillingRunStatus | 'all')}
+            className="rounded-md border border-line bg-white px-3 py-2 text-small text-ink"
+          >
+            <option value="all">All statuses</option>
+            {STATUS_ORDER.map((s) => (
+              <option key={s} value={s}>{STATUS_LABEL[s]}</option>
+            ))}
+          </select>
+        </div>
+
+        <div className="overflow-x-auto">
+          <table className="w-full text-small">
+            <thead>
+              <tr className="border-b border-line bg-surface/60 text-micro font-semibold uppercase tracking-wide text-muted">
+                <th className="px-5 py-3 text-left">Run</th>
+                <th className="px-5 py-3 text-left">Period</th>
+                <th className="px-5 py-3 text-right">Accounts</th>
+                <th className="px-5 py-3 text-right">Total USD</th>
+                <th className="px-5 py-3 text-left">Status</th>
+                <th className="px-5 py-3 text-left">Generated</th>
+              </tr>
+            </thead>
+            <tbody>
+              {rows.map((r) => (
+                <RunRow key={r.id} run={r} />
+              ))}
+              {rows.length === 0 && (
+                <tr><td colSpan={6} className="px-5 py-10 text-center text-small text-muted">No billing runs match the current filter.</td></tr>
+              )}
+            </tbody>
+          </table>
+        </div>
+      </Card>
     </div>
+  );
+}
+
+function RunRow({ run }: { run: BillingRun }) {
+  const source = findRevenueSource(run.source);
+  return (
+    <tr className="border-b border-line last:border-b-0 hover:bg-surface/60">
+      <td className="px-5 py-3">
+        <Link href={`/erp/billing/${run.id}`} className="font-semibold text-ink hover:text-brand-primary">
+          {source?.label ?? run.source}
+        </Link>
+        <div className="font-mono text-micro text-muted">{run.id}</div>
+      </td>
+      <td className="px-5 py-3 text-muted">{run.period}</td>
+      <td className="px-5 py-3 text-right tabular-nums text-muted">{run.accountCount.toLocaleString()}</td>
+      <td className="px-5 py-3 text-right font-semibold tabular-nums text-ink">{formatCurrency(run.totalUsd)}</td>
+      <td className="px-5 py-3">
+        <div className="flex flex-col gap-1">
+          <Badge tone={STATUS_TONE[run.status]} dot>{STATUS_LABEL[run.status]}</Badge>
+          {run.errorCount > 0 && (
+            <span className="text-[10px] font-bold uppercase tracking-wide text-danger">{run.errorCount} errors</span>
+          )}
+        </div>
+      </td>
+      <td className="px-5 py-3 text-muted">
+        <div>{formatDate(run.createdAt)}</div>
+        <div className="text-micro">{run.generatedBy}</div>
+      </td>
+    </tr>
+  );
+}
+
+function StatusPill({ label, count, tone }: { label: string; count: number; tone: 'warning' | 'info' | 'success' }) {
+  return (
+    <Card className="p-4">
+      <div className="text-micro font-semibold uppercase tracking-wide text-muted">{label}</div>
+      <div className={cn(
+        'mt-1 text-h2 font-bold tabular-nums',
+        tone === 'warning' ? 'text-warning' : tone === 'info' ? 'text-info' : 'text-success',
+      )}>
+        {count}
+      </div>
+    </Card>
   );
 }
