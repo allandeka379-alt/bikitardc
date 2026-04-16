@@ -34,9 +34,10 @@ export default function Resident360Page() {
     properties[0]?.ownerName ??
     DEMO_USERS.find((u) => u.id === id)?.fullName ??
     id;
-  const audit = useErpStore((s) =>
-    s.audit.filter((a) => a.subject.includes(id) || a.actorName === ownerName),
-  );
+  // Filter OUTSIDE the Zustand selector so we don't return a fresh array
+  // from the selector on every render (which would trigger an infinite loop).
+  const auditAll = useErpStore((s) => s.audit);
+  const audit = auditAll.filter((a) => a.subject.includes(id) || a.actorName === ownerName);
 
   if (properties.length === 0 && !DEMO_USERS.find((u) => u.id === id)) {
     return notFound();

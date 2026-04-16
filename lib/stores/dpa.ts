@@ -169,5 +169,9 @@ export const useDpaStore = create<DpaState>()(
 );
 
 export function useDpaForOwner(ownerId: string | null): DpaRequest[] {
-  return useDpaStore((s) => (ownerId ? s.items.filter((i) => i.applicantId === ownerId) : []));
+  // Filter OUTSIDE the Zustand selector — filtering inside returns a fresh
+  // array each render and triggers an infinite re-render loop.
+  const items = useDpaStore((s) => s.items);
+  if (!ownerId) return [];
+  return items.filter((i) => i.applicantId === ownerId);
 }

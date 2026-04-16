@@ -235,15 +235,25 @@ export const useNotificationsStore = create<NotificationState>()(
 // ─── Helpers ──────────────────────────────────
 
 export function useNotificationsForOwner(ownerId: string | null): NotificationItem[] {
-  return useNotificationsStore((s) =>
-    ownerId ? s.items.filter((i) => i.ownerId === ownerId) : [],
-  );
+  // Select the raw `items` array (stable reference until the store mutates)
+  // and derive the filtered view OUTSIDE the selector. Filtering inside a
+  // Zustand selector returns a new array on every render, which defeats the
+  // default Object.is comparison and triggers an infinite re-render loop.
+  const items = useNotificationsStore((s) => s.items);
+  if (!ownerId) return [];
+  return items.filter((i) => i.ownerId === ownerId);
 }
 
 export function useUnreadCount(ownerId: string | null): number {
-  return useNotificationsStore((s) =>
-    ownerId ? s.items.filter((i) => i.ownerId === ownerId && !i.readAt).length : 0,
-  );
+  // Safe even inside the selector because it returns a primitive, but keep
+  // the pattern consistent with useNotificationsForOwner.
+  const items = useNotificationsStore((s) => s.items);
+  if (!ownerId) return 0;
+  let count = 0;
+  for (const i of items) {
+    if (i.ownerId === ownerId && !i.readAt) count++;
+  }
+  return count;
 }
 
 /** Respects user preferences — returns the channels the notification will be delivered on. */

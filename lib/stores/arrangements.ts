@@ -120,22 +120,25 @@ export const useArrangementsStore = create<ArrangementsState>()(
   ),
 );
 
+// NOTE: filter/map/sort are done OUTSIDE the Zustand selector because a
+// selector that returns a freshly-constructed array on every render defeats
+// the default Object.is comparison and causes an infinite re-render loop.
+
 export function useArrangementsForOwner(ownerId: string | null): PaymentArrangement[] {
-  return useArrangementsStore((s) =>
-    ownerId ? s.items.filter((i) => i.ownerId === ownerId) : [],
-  );
+  const items = useArrangementsStore((s) => s.items);
+  if (!ownerId) return [];
+  return items.filter((i) => i.ownerId === ownerId);
 }
 
 export function usePendingArrangements(): PaymentArrangement[] {
-  return useArrangementsStore((s) => s.items.filter((i) => i.status === 'pending'));
+  const items = useArrangementsStore((s) => s.items);
+  return items.filter((i) => i.status === 'pending');
 }
 
 export function useArrangementForProperty(propertyId: string | null): PaymentArrangement | undefined {
-  return useArrangementsStore((s) =>
-    propertyId
-      ? s.items
-          .filter((i) => i.propertyId === propertyId)
-          .sort((a, b) => (a.requestedAt < b.requestedAt ? 1 : -1))[0]
-      : undefined,
-  );
+  const items = useArrangementsStore((s) => s.items);
+  if (!propertyId) return undefined;
+  return items
+    .filter((i) => i.propertyId === propertyId)
+    .sort((a, b) => (a.requestedAt < b.requestedAt ? 1 : -1))[0];
 }

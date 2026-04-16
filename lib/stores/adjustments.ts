@@ -122,5 +122,8 @@ export const useAdjustmentsStore = create<AdjustmentsState>()(
 );
 
 export function usePendingAdjustments(): Adjustment[] {
-  return useAdjustmentsStore((s) => s.items.filter((a) => a.status === 'pending'));
+  // Filter OUTSIDE the Zustand selector — filtering inside returns a fresh
+  // array each render and triggers an infinite re-render loop.
+  const items = useAdjustmentsStore((s) => s.items);
+  return items.filter((a) => a.status === 'pending');
 }
