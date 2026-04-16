@@ -3,7 +3,6 @@ import { Inter } from 'next/font/google';
 import { getLocale, getMessages } from 'next-intl/server';
 import { NextIntlClientProvider } from 'next-intl';
 import { AlertBanner } from '@/components/ui/alert-banner';
-import { DemoBanner } from '@/components/ui/demo-banner';
 import { Providers } from './providers';
 import './globals.css';
 
@@ -57,7 +56,6 @@ export default async function RootLayout({ children }: { children: React.ReactNo
       <body className="min-h-dvh bg-surface font-sans text-ink antialiased">
         <NextIntlClientProvider locale={locale} messages={messages}>
           <Providers>
-            <DemoBanner />
             <AlertBanner />
             {children}
           </Providers>

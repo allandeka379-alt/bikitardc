@@ -31,7 +31,7 @@ export const WARDS: Ward[] = [
       id: 'p_nyika_water',
       title: 'Community water reticulation — phase 2',
       imageUrl:
-        'https://images.unsplash.com/photo-1581244277943-fe4a9c777189?w=800&q=75&auto=format&fit=crop',
+        'https://images.unsplash.com/photo-1523413651479-597eb2da0ad6?w=1200&q=80&auto=format&fit=crop',
       progress: 68,
     },
   },
@@ -44,7 +44,7 @@ export const WARDS: Ward[] = [
       id: 'p_mupani_clinic',
       title: 'Mupani rural clinic solar rollout',
       imageUrl:
-        'https://images.unsplash.com/photo-1509390157308-8cc32736bb9e?w=800&q=75&auto=format&fit=crop',
+        'https://images.unsplash.com/photo-1631815588090-d4bfec5b1ccb?w=1200&q=80&auto=format&fit=crop',
       progress: 42,
     },
   },
@@ -57,7 +57,7 @@ export const WARDS: Ward[] = [
       id: 'p_nhema_road',
       title: 'Nhema–Mazungunye feeder road grading',
       imageUrl:
-        'https://images.unsplash.com/photo-1515162305285-0293e4767cc2?w=800&q=75&auto=format&fit=crop',
+        'https://images.unsplash.com/photo-1519003722824-194d4455a60c?w=1200&q=80&auto=format&fit=crop',
       progress: 91,
     },
   },

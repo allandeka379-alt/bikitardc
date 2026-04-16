@@ -23,13 +23,21 @@ interface Project {
   progress: number;
 }
 
+// Images sourced from Unsplash — themed to match each project.
+// If/when the Council provides real on-site photography for Kamungoma
+// signals and carriageway, swap the first two back to
+// /building/solar-traffic-lights.jpg and /building/kamungoma-road.jpg.
+const UNSPLASH = 'https://images.unsplash.com';
+const UNSPLASH_Q = '?w=1200&q=80&auto=format&fit=crop';
+
 const PROJECTS: Project[] = [
   {
     id: 'p_kamungoma_signals',
     titleKey: 'p1.title',
     bodyKey: 'p1.body',
     location: 'Kamungoma',
-    imageUrl: '/building/solar-traffic-lights.jpg',
+    // Solar panel array close-up — conveys "solar-powered intersection".
+    imageUrl: `${UNSPLASH}/photo-1508514177221-188b1cf16e9d${UNSPLASH_Q}`,
     progress: 100,
   },
   {
@@ -37,7 +45,8 @@ const PROJECTS: Project[] = [
     titleKey: 'p2.title',
     bodyKey: 'p2.body',
     location: 'Kamungoma',
-    imageUrl: '/building/kamungoma-road.jpg',
+    // Truck on a highway through mountains — new carriageway.
+    imageUrl: `${UNSPLASH}/photo-1519003722824-194d4455a60c${UNSPLASH_Q}`,
     progress: 95,
   },
   {
@@ -45,7 +54,8 @@ const PROJECTS: Project[] = [
     titleKey: 'p3.title',
     bodyKey: 'p3.body',
     location: 'District-wide',
-    imageUrl: '/tourism/zizhou-dam.jpg',
+    // Solar field — stands in for district-wide solar lighting rollout.
+    imageUrl: `${UNSPLASH}/photo-1509391366360-2e959784a276${UNSPLASH_Q}`,
     progress: 72,
   },
   {
@@ -53,7 +63,8 @@ const PROJECTS: Project[] = [
     titleKey: 'p4.title',
     bodyKey: 'p4.body',
     location: 'Silveira / Bota',
-    imageUrl: '/tourism/hanyanya-mountain.jpg',
+    // Solar panels on a field — rural electrification programme.
+    imageUrl: `${UNSPLASH}/photo-1497435334941-8c899ee9e8e9${UNSPLASH_Q}`,
     progress: 58,
   },
   {
@@ -61,6 +72,7 @@ const PROJECTS: Project[] = [
     titleKey: 'p5.title',
     bodyKey: 'p5.body',
     location: 'Nhema / Mupani',
+    // Siya Dam (Council photography) — real dam in the district.
     imageUrl: '/tourism/siya-dam.jpg',
     progress: 40,
   },
@@ -69,7 +81,8 @@ const PROJECTS: Project[] = [
     titleKey: 'p6.title',
     bodyKey: 'p6.body',
     location: 'Corridor upgrades',
-    imageUrl: '/tourism/chibvumani-monument.jpg',
+    // Welding / steelwork — infrastructure build, signage fabrication.
+    imageUrl: `${UNSPLASH}/photo-1564182842519-8a3b2af3e228${UNSPLASH_Q}`,
     progress: 30,
   },
 ];
