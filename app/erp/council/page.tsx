@@ -4,6 +4,7 @@
 
 import { ArrowRight, CalendarClock, CheckSquare, ClipboardList, Gavel } from 'lucide-react';
 import Link from 'next/link';
+import { ModuleTabs } from '@/components/erp/module-tabs';
 import { ScrollReveal } from '@/components/motion/scroll-reveal';
 import { Badge } from '@/components/ui/badge';
 import { Card } from '@/components/ui/card';
@@ -28,13 +29,22 @@ export default function CouncilHubPage() {
   return (
     <div className="mx-auto max-w-[1280px] px-4 py-6 sm:px-6 sm:py-8 lg:px-10">
       <ScrollReveal>
-        <div className="mb-6">
+        <div className="mb-5">
           <h1 className="text-h1 text-ink">Council workflow</h1>
           <p className="mt-1 text-small text-muted">
             Agenda builder, resolutions tracker and action-item follow-through for every council sitting.
           </p>
         </div>
       </ScrollReveal>
+
+      <ModuleTabs
+        items={[
+          { href: '/erp/council',             label: 'Overview' },
+          { href: '/erp/council/meetings',    label: 'Meetings',    badge: upcoming.length },
+          { href: '/erp/council/resolutions', label: 'Resolutions' },
+          { href: '/erp/council/actions',     label: 'Action items', badge: open.length },
+        ]}
+      />
 
       <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
         <Kpi label="Upcoming meetings"  value={upcoming.length.toString()}      sub={upcoming[0] ? `Next: ${formatDate(upcoming[0].startsAt)}` : 'None scheduled'} href="/erp/council/meetings"    Icon={CalendarClock} tone="brand" />

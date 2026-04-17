@@ -22,10 +22,10 @@ export interface AuthState {
   fullName: string | null;
   role: DemoRole | null;
   /** Set when a dual-role user picks "resident" or "staff" in /choose-role. */
-  activeRole: 'resident' | 'clerk' | null;
+  activeRole: 'resident' | 'clerk' | 'ceo' | null;
 
   login: (user: DemoUser) => void;
-  setActiveRole: (role: 'resident' | 'clerk') => void;
+  setActiveRole: (role: 'resident' | 'clerk' | 'ceo') => void;
   logout: () => void;
 }
 
@@ -45,11 +45,10 @@ export const useAuthStore = create<AuthState>()(
           fullName: user.fullName,
           role: user.role,
           activeRole:
-            user.role === 'both'
-              ? null
-              : user.role === 'clerk'
-                ? 'clerk'
-                : 'resident',
+            user.role === 'both'     ? null     :
+            user.role === 'clerk'    ? 'clerk'  :
+            user.role === 'ceo'      ? 'ceo'    :
+                                       'resident',
         }),
 
       setActiveRole: (role) => set({ activeRole: role }),

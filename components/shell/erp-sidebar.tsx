@@ -1,44 +1,29 @@
 'use client';
 
-// ERP desktop sidebar — mirrors the portal sidebar
-// structurally, but with staff-oriented nav items
-// and a subtle gold accent to distinguish the
-// workspace from the citizen portal.
+// ERP desktop sidebar — flat, one entry per module
+// (professional-ERP pattern). Each module hub carries
+// its own sub-navigation for drill-downs like
+// market stalls, beer halls, CAMPFIRE, etc.
+//
+// Sections stay visible so scanning is fast and
+// there's no need for expand/collapse on 12 items.
 
 import {
-  BookOpen,
-  Building2,
-  CalendarClock,
-  CalendarDays,
-  CheckSquare,
-  ClipboardList,
   FileBadge2,
-  FileBarChart,
-  FileSignature,
   Files,
-  FlaskConical,
   Gavel,
   HandCoins,
-  Handshake,
   HardHat,
-  History,
   Landmark,
   LayoutDashboard,
   LifeBuoy,
   LogOut,
   Map,
   Receipt,
-  ReceiptText,
-  ScrollText,
   Settings,
   ShoppingCart,
-  Store,
-  Trees,
-  Truck,
   UserCog,
   Users,
-  Wallet,
-  Wrench,
   type LucideIcon,
 } from 'lucide-react';
 import Link from 'next/link';
@@ -47,114 +32,45 @@ import { Logo } from '@/components/ui/logo';
 import { useCurrentUser } from '@/lib/hooks/use-current-user';
 import { cn } from '@/lib/cn';
 
-interface NavGroup {
-  heading: string;
-  items: { href: string; label: string; Icon: LucideIcon; badge?: string }[];
-}
+interface NavItem { href: string; label: string; Icon: LucideIcon; badge?: string }
+interface Section { heading: string; items: NavItem[] }
 
-const GROUPS: NavGroup[] = [
+// 4 sections, ~12 total entries. Sub-pages (market stalls,
+// GL accounts, work orders, etc.) live behind the module
+// hub pages and show up in each hub's tile navigation + tab bar.
+const SECTIONS: Section[] = [
   {
-    heading: 'Workspace',
+    heading: 'Core',
     items: [
-      { href: '/erp/dashboard',   label: 'Dashboard',         Icon: LayoutDashboard },
-      { href: '/erp/analytics',   label: 'Executive view',    Icon: FileBarChart },
-      { href: '/erp/cadastre',    label: 'Cadastral map',     Icon: Map },
-      { href: '/erp/residents',   label: 'Residents',         Icon: Users },
-      { href: '/erp/properties',  label: 'Properties',        Icon: Receipt },
+      { href: '/erp/dashboard',  label: 'Dashboard',  Icon: LayoutDashboard },
+      { href: '/erp/residents',  label: 'Residents',  Icon: Users },
+      { href: '/erp/properties', label: 'Properties', Icon: Receipt },
+      { href: '/erp/cadastre',   label: 'Cadastre',   Icon: Map },
     ],
   },
   {
-    heading: 'Revenue',
+    heading: 'Revenue & Finance',
     items: [
-      { href: '/erp/billing',              label: 'Billing runs',    Icon: HandCoins },
-      { href: '/erp/billing/market-fees',  label: 'Market stalls',   Icon: Store },
-      { href: '/erp/billing/beer-hall',    label: 'Beer halls',      Icon: FlaskConical },
-      { href: '/erp/billing/campfire',     label: 'CAMPFIRE',        Icon: Trees },
-      { href: '/erp/payments',             label: 'Payments',        Icon: Wallet },
-      { href: '/erp/payments/reconcile',   label: 'Reconciliation',  Icon: ClipboardList, badge: '2' },
-      { href: '/erp/arrangements',         label: 'Arrangements',    Icon: CalendarClock },
-      { href: '/erp/adjustments',          label: 'Adjustments',     Icon: ClipboardList },
-    ],
-  },
-  {
-    heading: 'Finance',
-    items: [
-      { href: '/erp/finance',                     label: 'Finance overview',    Icon: Landmark },
-      { href: '/erp/finance/gl',                  label: 'General ledger',      Icon: BookOpen },
-      { href: '/erp/finance/budget',              label: 'Budget vs actual',    Icon: FileBarChart },
-      { href: '/erp/finance/bank-reconciliation', label: 'Bank reconciliation', Icon: Landmark },
-      { href: '/erp/finance/creditors',           label: 'Creditors',           Icon: ReceiptText },
-      { href: '/erp/finance/debtors',             label: 'Debtors',             Icon: Users },
-      { href: '/erp/finance/fixed-assets',        label: 'Fixed assets',        Icon: Building2 },
-      { href: '/erp/finance/reports',             label: 'Statutory reports',   Icon: ScrollText },
+      { href: '/erp/billing',  label: 'Revenue & Billing', Icon: HandCoins, badge: '2' },
+      { href: '/erp/finance',  label: 'Finance',           Icon: Landmark },
     ],
   },
   {
     heading: 'Operations',
     items: [
-      { href: '/erp/applications', label: 'Applications',     Icon: FileBadge2 },
-      { href: '/erp/inspections',  label: 'Inspections',      Icon: CalendarClock },
-      { href: '/erp/field',        label: 'Field mode',       Icon: LifeBuoy },
+      { href: '/erp/applications', label: 'Applications',  Icon: FileBadge2 },
       { href: '/erp/requests',     label: 'Service requests', Icon: LifeBuoy },
-      { href: '/erp/requests/map', label: 'Requests map',     Icon: Map },
-      { href: '/erp/valuation',    label: 'Valuation cycle',  Icon: CalendarClock },
+      { href: '/erp/works',        label: 'Works & Assets', Icon: HardHat },
+      { href: '/erp/hr',           label: 'HR & Payroll',   Icon: UserCog },
     ],
   },
   {
-    heading: 'Works & assets',
+    heading: 'Governance',
     items: [
-      { href: '/erp/works',               label: 'Works overview',   Icon: HardHat },
-      { href: '/erp/works/work-orders',   label: 'Work orders',      Icon: ClipboardList },
-      { href: '/erp/works/fleet',         label: 'Fleet & plant',    Icon: Truck },
-      { href: '/erp/works/maintenance',   label: 'Maintenance plan', Icon: Wrench },
-    ],
-  },
-  {
-    heading: 'HR & payroll',
-    items: [
-      { href: '/erp/hr',            label: 'HR overview',    Icon: UserCog },
-      { href: '/erp/hr/employees',  label: 'Employees',      Icon: Users },
-      { href: '/erp/hr/leave',      label: 'Leave',          Icon: CalendarDays },
-      { href: '/erp/hr/payroll',    label: 'Payroll',        Icon: Wallet },
-    ],
-  },
-  {
-    heading: 'Procurement',
-    items: [
-      { href: '/erp/procurement',              label: 'Procurement overview', Icon: ShoppingCart },
-      { href: '/erp/procurement/requisitions', label: 'Requisitions',         Icon: ClipboardList },
-      { href: '/erp/procurement/tenders',      label: 'Tenders & RFQs',       Icon: FileSignature },
-      { href: '/erp/procurement/contracts',    label: 'Contracts',            Icon: Handshake },
-    ],
-  },
-  {
-    heading: 'Council',
-    items: [
-      { href: '/erp/council',             label: 'Council overview',  Icon: Gavel },
-      { href: '/erp/council/meetings',    label: 'Meetings',          Icon: CalendarClock },
-      { href: '/erp/council/resolutions', label: 'Resolutions',       Icon: Gavel },
-      { href: '/erp/council/actions',     label: 'Action items',      Icon: CheckSquare },
-    ],
-  },
-  {
-    heading: 'Records',
-    items: [
-      { href: '/erp/documents',           label: 'Document repository', Icon: Files },
-      { href: '/erp/documents/retention', label: 'Retention policies',  Icon: ScrollText },
-    ],
-  },
-  {
-    heading: 'Insights',
-    items: [
-      { href: '/erp/reports',            label: 'Reports',         Icon: History },
-      { href: '/erp/admin',              label: 'Admin',           Icon: Settings },
-      { href: '/erp/admin/content',      label: 'Content manager', Icon: Settings },
-      { href: '/erp/admin/rate-cards',   label: 'Rate cards',      Icon: Settings },
-      { href: '/erp/admin/alerts',       label: 'Alerts',          Icon: Settings },
-      { href: '/erp/admin/messaging',    label: 'Bulk messaging',  Icon: Settings },
-      { href: '/erp/admin/workflows',    label: 'Workflows & rules', Icon: Settings },
-      { href: '/erp/admin/health',       label: 'System health',   Icon: Settings },
-      { href: '/erp/dpa',                label: 'Data rights',     Icon: Settings },
+      { href: '/erp/procurement', label: 'Procurement', Icon: ShoppingCart },
+      { href: '/erp/council',     label: 'Council',     Icon: Gavel },
+      { href: '/erp/documents',   label: 'Documents',   Icon: Files },
+      { href: '/erp/admin',       label: 'Admin',       Icon: Settings },
     ],
   },
 ];
@@ -170,7 +86,7 @@ export function ErpSidebar() {
   };
 
   return (
-    <aside className="hidden lg:sticky lg:top-0 lg:flex lg:h-dvh lg:w-[260px] lg:shrink-0 lg:flex-col lg:border-r lg:border-line lg:bg-card">
+    <aside className="hidden lg:sticky lg:top-0 lg:flex lg:h-dvh lg:w-[240px] lg:shrink-0 lg:flex-col lg:border-r lg:border-line lg:bg-card">
       <div className="flex items-center justify-between border-b border-line px-5 py-5">
         <Link
           href="/erp/dashboard"
@@ -183,14 +99,14 @@ export function ErpSidebar() {
         </span>
       </div>
 
-      <nav className="flex-1 overflow-y-auto px-3 py-4">
-        {GROUPS.map((group) => (
-          <div key={group.heading} className="mb-5">
-            <div className="mb-1.5 px-3 text-[10px] font-bold uppercase tracking-[0.1em] text-muted">
-              {group.heading}
+      <nav className="flex-1 overflow-y-auto px-3 py-3">
+        {SECTIONS.map((section) => (
+          <div key={section.heading} className="mb-5">
+            <div className="mb-1.5 px-3 text-[10px] font-bold uppercase tracking-[0.12em] text-muted">
+              {section.heading}
             </div>
             <ul className="flex flex-col gap-0.5">
-              {group.items.map(({ href, label, Icon, badge }) => {
+              {section.items.map(({ href, label, Icon, badge }) => {
                 const active = pathname === href || pathname.startsWith(href + '/');
                 return (
                   <li key={href}>

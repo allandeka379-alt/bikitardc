@@ -207,7 +207,8 @@
       "demoHint": "Demo credentials",
       "demoResident": "Resident",
       "demoClerk": "Rates Clerk",
-      "demoBoth": "Dual-role"
+      "demoBoth": "Dual-role",
+      "demoCeo": "Chief Executive"
     },
     "register": {
       "title": "Create your account",

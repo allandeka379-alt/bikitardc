@@ -12,6 +12,7 @@ import { Filter, Plus } from 'lucide-react';
 import Link from 'next/link';
 import { useMemo, useState } from 'react';
 import { ScrollReveal } from '@/components/motion/scroll-reveal';
+import { ModuleTabs } from '@/components/erp/module-tabs';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
@@ -58,9 +59,9 @@ export default function BillingPage() {
   return (
     <div className="mx-auto max-w-[1280px] px-4 py-6 sm:px-6 sm:py-8 lg:px-10">
       <ScrollReveal>
-        <div className="mb-6 flex flex-wrap items-end justify-between gap-3">
+        <div className="mb-5 flex flex-wrap items-end justify-between gap-3">
           <div>
-            <h1 className="text-h1 text-ink">Billing runs</h1>
+            <h1 className="text-h1 text-ink">Revenue &amp; Billing</h1>
             <p className="mt-1 text-small text-muted">
               Automated generation of statements across property rates, unit tax, market fees, CAMPFIRE and more.
             </p>
@@ -70,6 +71,19 @@ export default function BillingPage() {
           </Button>
         </div>
       </ScrollReveal>
+
+      <ModuleTabs
+        items={[
+          { href: '/erp/billing',             label: 'Billing runs' },
+          { href: '/erp/billing/market-fees', label: 'Market stalls' },
+          { href: '/erp/billing/beer-hall',   label: 'Beer halls' },
+          { href: '/erp/billing/campfire',    label: 'CAMPFIRE' },
+          { href: '/erp/payments',            label: 'Payments' },
+          { href: '/erp/payments/reconcile',  label: 'Reconciliation', badge: 2 },
+          { href: '/erp/arrangements',        label: 'Arrangements' },
+          { href: '/erp/adjustments',         label: 'Adjustments' },
+        ]}
+      />
 
       <div className="mb-6 grid gap-3 sm:grid-cols-3">
         <StatusPill label="Draft / awaiting review" count={draftCount} tone="warning" />

@@ -5,6 +5,7 @@
 import { ArrowLeft, Archive, Download, FileText, Filter } from 'lucide-react';
 import Link from 'next/link';
 import { useMemo, useState } from 'react';
+import { ModuleTabs } from '@/components/erp/module-tabs';
 import { ScrollReveal } from '@/components/motion/scroll-reveal';
 import { Badge } from '@/components/ui/badge';
 import { Card } from '@/components/ui/card';
@@ -41,16 +42,20 @@ export default function DocumentsPage() {
   return (
     <div className="mx-auto max-w-[1280px] px-4 py-6 sm:px-6 sm:py-8 lg:px-10">
       <ScrollReveal>
-        <div className="mb-6 flex flex-wrap items-end justify-between gap-3">
+        <div className="mb-5 flex flex-wrap items-end justify-between gap-3">
           <div>
             <h1 className="text-h1 text-ink">Document repository</h1>
             <p className="mt-1 text-small text-muted">{DOCUMENTS.length} records · retention policies across {RETENTION_POLICIES.length} categories.</p>
           </div>
-          <Link href="/erp/documents/retention" className="inline-flex items-center gap-1.5 rounded-full border border-line px-4 py-1.5 text-small font-medium text-brand-primary hover:bg-brand-primary/5">
-            <Archive className="h-4 w-4" /> Retention policies
-          </Link>
         </div>
       </ScrollReveal>
+
+      <ModuleTabs
+        items={[
+          { href: '/erp/documents',           label: 'Repository' },
+          { href: '/erp/documents/retention', label: 'Retention policies' },
+        ]}
+      />
 
       <Card className="overflow-hidden">
         <div className="flex flex-wrap items-center gap-3 border-b border-line px-5 py-3">

@@ -12,6 +12,7 @@ import {
   Wallet,
 } from 'lucide-react';
 import Link from 'next/link';
+import { ModuleTabs } from '@/components/erp/module-tabs';
 import { ScrollReveal } from '@/components/motion/scroll-reveal';
 import { Card } from '@/components/ui/card';
 import { formatCurrency } from '@/lib/format';
@@ -40,13 +41,22 @@ export default function HrHubPage() {
   return (
     <div className="mx-auto max-w-[1280px] px-4 py-6 sm:px-6 sm:py-8 lg:px-10">
       <ScrollReveal>
-        <div className="mb-6">
+        <div className="mb-5">
           <h1 className="text-h1 text-ink">HR &amp; Payroll</h1>
           <p className="mt-1 text-small text-muted">
             Employee records, leave management and monthly payroll with PAYE / NSSA / NEC withholdings.
           </p>
         </div>
       </ScrollReveal>
+
+      <ModuleTabs
+        items={[
+          { href: '/erp/hr',           label: 'Overview' },
+          { href: '/erp/hr/employees', label: 'Employees' },
+          { href: '/erp/hr/leave',     label: 'Leave', badge: pending },
+          { href: '/erp/hr/payroll',   label: 'Payroll' },
+        ]}
+      />
 
       {/* Headline KPIs */}
       <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">

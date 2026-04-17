@@ -4,6 +4,7 @@
 
 import { ArrowRight, ClipboardList, FileSignature, Handshake, ShoppingCart } from 'lucide-react';
 import Link from 'next/link';
+import { ModuleTabs } from '@/components/erp/module-tabs';
 import { ScrollReveal } from '@/components/motion/scroll-reveal';
 import { Card } from '@/components/ui/card';
 import { formatCurrency } from '@/lib/format';
@@ -22,13 +23,22 @@ export default function ProcurementHubPage() {
   return (
     <div className="mx-auto max-w-[1280px] px-4 py-6 sm:px-6 sm:py-8 lg:px-10">
       <ScrollReveal>
-        <div className="mb-6">
+        <div className="mb-5">
           <h1 className="text-h1 text-ink">Procurement</h1>
           <p className="mt-1 text-small text-muted">
             Requisitions, PRAZ-compliant tenders, supplier contracts and three-way matching — one procurement spine.
           </p>
         </div>
       </ScrollReveal>
+
+      <ModuleTabs
+        items={[
+          { href: '/erp/procurement',              label: 'Overview' },
+          { href: '/erp/procurement/requisitions', label: 'Requisitions', badge: pendingReqs },
+          { href: '/erp/procurement/tenders',      label: 'Tenders & RFQs' },
+          { href: '/erp/procurement/contracts',    label: 'Contracts' },
+        ]}
+      />
 
       <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
         <Kpi label="Open requisitions"     value={pendingReqs.toString()} sub={`${reqs.submitted} awaiting CFO approval`} href="/erp/procurement/requisitions" Icon={ClipboardList} tone={reqs.submitted > 0 ? 'warning' : 'info'} />

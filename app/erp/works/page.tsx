@@ -11,6 +11,7 @@ import {
   Wrench,
 } from 'lucide-react';
 import Link from 'next/link';
+import { ModuleTabs } from '@/components/erp/module-tabs';
 import { ScrollReveal } from '@/components/motion/scroll-reveal';
 import { Card } from '@/components/ui/card';
 import { formatCurrency } from '@/lib/format';
@@ -33,13 +34,22 @@ export default function WorksHubPage() {
   return (
     <div className="mx-auto max-w-[1280px] px-4 py-6 sm:px-6 sm:py-8 lg:px-10">
       <ScrollReveal>
-        <div className="mb-6">
+        <div className="mb-5">
           <h1 className="text-h1 text-ink">Works &amp; assets</h1>
           <p className="mt-1 text-small text-muted">
             Fleet, plant, work orders, road maintenance and water / sanitation infrastructure — one command centre.
           </p>
         </div>
       </ScrollReveal>
+
+      <ModuleTabs
+        items={[
+          { href: '/erp/works',             label: 'Overview' },
+          { href: '/erp/works/work-orders', label: 'Work orders', badge: open },
+          { href: '/erp/works/fleet',       label: 'Fleet & plant' },
+          { href: '/erp/works/maintenance', label: 'Maintenance plan' },
+        ]}
+      />
 
       {/* KPIs */}
       <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">

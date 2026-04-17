@@ -173,7 +173,10 @@ export default function LoginPage() {
                 >
                   <div className="min-w-0">
                     <div className="text-small font-semibold text-ink">
-                      {u.role === 'resident' ? t('demoResident') : u.role === 'clerk' ? t('demoClerk') : t('demoBoth')}
+                      {u.role === 'resident' ? t('demoResident') :
+                       u.role === 'clerk'    ? t('demoClerk')    :
+                       u.role === 'ceo'      ? t('demoCeo')      :
+                                               t('demoBoth')}
                     </div>
                     <div className="truncate-line text-micro text-muted">
                       {u.email} · {u.password}

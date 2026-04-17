@@ -5,7 +5,7 @@
 // demo with fabricated data only.
 // ─────────────────────────────────────────────
 
-export type DemoRole = 'resident' | 'clerk' | 'both';
+export type DemoRole = 'resident' | 'clerk' | 'both' | 'ceo';
 
 export interface DemoUser {
   id: string;
@@ -15,7 +15,7 @@ export interface DemoUser {
   fullName: string;
   role: DemoRole;
   /** Where to route after login. Dual-role sees chooser first. */
-  redirect: '/portal/dashboard' | '/erp/dashboard' | '/choose-role';
+  redirect: '/portal/dashboard' | '/erp/dashboard' | '/ceo' | '/choose-role';
 }
 
 export const DEMO_USERS: DemoUser[] = [
@@ -45,6 +45,15 @@ export const DEMO_USERS: DemoUser[] = [
     fullName: 'Rutendo Chari',
     role: 'both',
     redirect: '/choose-role',
+  },
+  {
+    id: 'u_ceo',
+    email: 'ceo@demo.bikita',
+    phone: '+263774567890',
+    password: 'Demo1234',
+    fullName: 'Eng. Tafadzwa Makoni',
+    role: 'ceo',
+    redirect: '/ceo',
   },
 ];
 

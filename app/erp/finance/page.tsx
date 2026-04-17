@@ -18,6 +18,7 @@ import {
   Wallet,
 } from 'lucide-react';
 import Link from 'next/link';
+import { ModuleTabs } from '@/components/erp/module-tabs';
 import { ScrollReveal } from '@/components/motion/scroll-reveal';
 import { Card } from '@/components/ui/card';
 import { formatCurrency } from '@/lib/format';
@@ -49,13 +50,26 @@ export default function FinanceHubPage() {
   return (
     <div className="mx-auto max-w-[1280px] px-4 py-6 sm:px-6 sm:py-8 lg:px-10">
       <ScrollReveal>
-        <div className="mb-6">
+        <div className="mb-5">
           <h1 className="text-h1 text-ink">Finance</h1>
           <p className="mt-1 text-small text-muted">
             General ledger, budget, treasury, creditors, debtors and fixed assets — IPSAS-aligned.
           </p>
         </div>
       </ScrollReveal>
+
+      <ModuleTabs
+        items={[
+          { href: '/erp/finance',                     label: 'Overview' },
+          { href: '/erp/finance/gl',                  label: 'General ledger' },
+          { href: '/erp/finance/budget',              label: 'Budget vs actual' },
+          { href: '/erp/finance/bank-reconciliation', label: 'Bank reconciliation' },
+          { href: '/erp/finance/creditors',           label: 'Creditors' },
+          { href: '/erp/finance/debtors',             label: 'Debtors' },
+          { href: '/erp/finance/fixed-assets',        label: 'Fixed assets' },
+          { href: '/erp/finance/reports',             label: 'Reports' },
+        ]}
+      />
 
       {/* Headline KPIs */}
       <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
