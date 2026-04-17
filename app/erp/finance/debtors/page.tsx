@@ -150,7 +150,7 @@ export default function DebtorsPage() {
               {rows.map((d) => (
                 <tr key={d.property.id} className="border-b border-line last:border-b-0 hover:bg-surface/60">
                   <td className="px-5 py-3">
-                    <Link href={`/erp/residents/${d.property.ownerId}`} className="font-semibold text-ink hover:text-brand-primary">
+                    <Link href={`/erp/crm/${d.property.ownerId}`} className="font-semibold text-ink hover:text-brand-primary">
                       {d.property.ownerName}
                     </Link>
                   </td>

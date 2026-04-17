@@ -159,7 +159,7 @@ export default function FinanceHubPage() {
                 <li key={row.property.id} className="flex items-center justify-between gap-3 py-2.5">
                   <div className="min-w-0">
                     <Link
-                      href={`/erp/residents/${row.property.ownerId}`}
+                      href={`/erp/crm/${row.property.ownerId}`}
                       className="truncate-line block text-small font-semibold text-ink hover:text-brand-primary"
                     >
                       {row.property.ownerName}

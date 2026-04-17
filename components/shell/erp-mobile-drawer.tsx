@@ -28,7 +28,7 @@ import { cn } from '@/lib/cn';
 
 const LINKS: { href: string; label: string; Icon: LucideIcon }[] = [
   { href: '/erp/dashboard',          label: 'Dashboard',      Icon: LayoutDashboard },
-  { href: '/erp/residents',          label: 'Residents',      Icon: Users },
+  { href: '/erp/crm',                label: 'Customers',      Icon: Users },
   { href: '/erp/properties',         label: 'Properties',     Icon: Receipt },
   { href: '/erp/billing',            label: 'Billing runs',   Icon: HandCoins },
   { href: '/erp/payments',           label: 'Payments',       Icon: Wallet },

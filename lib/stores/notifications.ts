@@ -159,7 +159,7 @@ const SEED: NotificationItem[] = [
     body: 'Oldest item is 4 days old — you have until Thursday to clear the queue.',
     event: 'application-stage',
     tone: 'warning',
-    href: '/erp/residents?filter=pending-verifications',
+    href: '/erp/crm?filter=pending-verifications',
     createdAt: '2026-04-16T07:45:00Z',
     channels: ['app', 'email'],
   },

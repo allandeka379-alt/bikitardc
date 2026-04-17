@@ -182,7 +182,7 @@ export default function ErpApplicationDetailPage() {
                 Applicant{' '}
                 {applicant ? (
                   <Link
-                    href={`/erp/residents/${applicant.id}`}
+                    href={`/erp/crm/${applicant.id}`}
                     className="font-medium text-brand-primary hover:underline"
                   >
                     {applicant.fullName}
@@ -410,7 +410,7 @@ export default function ErpApplicationDetailPage() {
               {applicant && (
                 <div className="mt-4">
                   <Button asChild variant="secondary" size="sm">
-                    <Link href={`/erp/residents/${applicant.id}`}>Open 360 view</Link>
+                    <Link href={`/erp/crm/${applicant.id}`}>Open 360 view</Link>
                   </Button>
                 </div>
               )}

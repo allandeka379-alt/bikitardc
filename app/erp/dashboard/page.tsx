@@ -74,7 +74,7 @@ export default function ErpDashboardPage() {
             kpi={pendingVerif!}
             icon={<ShieldCheck className="h-5 w-5" />}
             tint="gold"
-            href="/erp/residents?filter=pending-verifications"
+            href="/erp/crm?filter=pending-verifications"
           />
         </ScrollReveal>
         <ScrollReveal delay={180}>

@@ -11,7 +11,12 @@ export type AuditActionKind =
   | 'verification-approved'
   | 'verification-rejected'
   | 'payment-matched'
+  | 'payment-recorded'
   | 'application-advanced'
+  | 'application-submitted'
+  | 'penalty-raised'
+  | 'penalty-waived'
+  | 'note-added'
   | 'request-assigned'
   | 'request-resolved'
   | 'billing-run-created'
@@ -32,7 +37,12 @@ export const AUDIT_ACTION_LABEL: Record<AuditActionKind, string> = {
   'verification-approved': 'Approved verification',
   'verification-rejected': 'Rejected verification',
   'payment-matched':       'Matched payment',
+  'payment-recorded':      'Recorded counter payment',
   'application-advanced':  'Advanced application',
+  'application-submitted': 'Submitted application',
+  'penalty-raised':        'Raised penalty',
+  'penalty-waived':        'Waived penalty',
+  'note-added':            'Added customer note',
   'request-assigned':      'Assigned request',
   'request-resolved':      'Resolved request',
   'billing-run-created':   'Created billing run',

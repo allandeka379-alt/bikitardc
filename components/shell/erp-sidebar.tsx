@@ -43,7 +43,7 @@ const SECTIONS: Section[] = [
     heading: 'Core',
     items: [
       { href: '/erp/dashboard',  label: 'Dashboard',  Icon: LayoutDashboard },
-      { href: '/erp/residents',  label: 'Residents',  Icon: Users },
+      { href: '/erp/crm',        label: 'Customers',  Icon: Users },
       { href: '/erp/properties', label: 'Properties', Icon: Receipt },
       { href: '/erp/cadastre',   label: 'Cadastre',   Icon: Map },
     ],
