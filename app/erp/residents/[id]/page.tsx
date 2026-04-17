@@ -5,13 +5,12 @@
 // Tabs: Overview / Properties / Payments / Applications / Audit.
 // ─────────────────────────────────────────────
 
-import { ArrowLeft, FileBadge2, LifeBuoy, Receipt as ReceiptIcon, TriangleAlert } from 'lucide-react';
+import { ArrowLeft, Bell, CalendarClock, FileBadge2, LifeBuoy, Mail, Phone, Receipt as ReceiptIcon, ShieldAlert, TriangleAlert } from 'lucide-react';
 import Link from 'next/link';
 import { notFound, useParams } from 'next/navigation';
 import { ScrollReveal } from '@/components/motion/scroll-reveal';
 import { RecentActivity } from '@/components/portal/recent-activity';
 import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { EmptyState } from '@/components/ui/empty-state';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
@@ -26,6 +25,9 @@ import { propertiesForOwner, tierOf } from '@/mocks/fixtures/properties';
 import { SERVICE_REQUESTS } from '@/mocks/fixtures/service-requests';
 import { transactionsForOwner } from '@/mocks/fixtures/transactions';
 import { DEMO_USERS } from '@/mocks/fixtures/users';
+import { useArrangementsForOwner } from '@/lib/stores/arrangements';
+import { useDpaForOwner } from '@/lib/stores/dpa';
+import { useNotificationsForOwner } from '@/lib/stores/notifications';
 
 export default function Resident360Page() {
   const { id } = useParams<{ id: string }>();
@@ -38,6 +40,11 @@ export default function Resident360Page() {
   // from the selector on every render (which would trigger an infinite loop).
   const auditAll = useErpStore((s) => s.audit);
   const audit = auditAll.filter((a) => a.subject.includes(id) || a.actorName === ownerName);
+  // Cross-module feeds — all hooks MUST be called unconditionally before any
+  // early return, to satisfy the Rules of Hooks.
+  const arrangements = useArrangementsForOwner(id);
+  const dpa = useDpaForOwner(id);
+  const notifications = useNotificationsForOwner(id);
 
   if (properties.length === 0 && !DEMO_USERS.find((u) => u.id === id)) {
     return notFound();
@@ -47,8 +54,13 @@ export default function Resident360Page() {
   const applications = applicationsForOwner(id);
   const serviceRequests = SERVICE_REQUESTS.filter((r) => r.reporterName === ownerName);
 
+  const demoUser = DEMO_USERS.find((u) => u.id === id);
   const totalOutstanding = properties.reduce((s, p) => s + p.balanceUsd, 0);
   const overdue = properties.filter((p) => tierOf(p) === 'overdue').length;
+  const ytdPaid = transactions
+    .filter((t) => t.status === 'succeeded')
+    .reduce((s, t) => s + t.amount, 0);
+  const unreadNotifications = notifications.filter((n) => !n.readAt).length;
   const propertyMap: Record<string, string> = Object.fromEntries(
     properties.map((p) => [p.id, p.address]),
   );
@@ -74,7 +86,7 @@ export default function Resident360Page() {
               </span>
               <div>
                 <h1 className="text-h1 text-ink sm:text-[1.75rem] sm:leading-[2.25rem]">{ownerName}</h1>
-                <p className="mt-1 text-small text-muted">{id}</p>
+                <p className="mt-1 font-mono text-micro text-muted">{id}</p>
                 <div className="mt-2 flex flex-wrap gap-1.5">
                   <Badge tone="brand">Resident</Badge>
                   {overdue > 0 && (
@@ -84,15 +96,24 @@ export default function Resident360Page() {
                     </Badge>
                   )}
                   {totalOutstanding === 0 && <Badge tone="success">Paid up</Badge>}
+                  {arrangements.some((a) => a.status === 'approved') && <Badge tone="info">Arrangement approved</Badge>}
+                  {dpa.length > 0 && <Badge tone="warning"><ShieldAlert className="h-3 w-3" />DPA request</Badge>}
                 </div>
+                {demoUser && (
+                  <div className="mt-3 flex flex-wrap gap-4 text-micro text-muted">
+                    <span className="inline-flex items-center gap-1.5"><Mail  className="h-3 w-3" />{demoUser.email}</span>
+                    {demoUser.phone && <span className="inline-flex items-center gap-1.5"><Phone className="h-3 w-3" />{demoUser.phone}</span>}
+                  </div>
+                )}
               </div>
             </div>
 
-            <div className="flex flex-wrap gap-6">
-              <Stat label="Outstanding" value={formatCurrency(totalOutstanding)} tone={totalOutstanding > 0 ? 'danger' : 'success'} />
-              <Stat label="Properties" value={`${properties.length}`} />
+            <div className="grid grid-cols-2 gap-4 sm:flex sm:flex-row sm:flex-wrap sm:gap-6">
+              <Stat label="Outstanding"  value={formatCurrency(totalOutstanding)} tone={totalOutstanding > 0 ? 'danger' : 'success'} />
+              <Stat label="YTD paid"     value={formatCurrency(ytdPaid)}          tone="success" />
+              <Stat label="Properties"   value={`${properties.length}`} />
               <Stat label="Applications" value={`${applications.length}`} />
-              <Stat label="Requests" value={`${serviceRequests.length}`} />
+              <Stat label="Requests"     value={`${serviceRequests.length}`} />
             </div>
           </div>
         </Card>
@@ -112,6 +133,16 @@ export default function Resident360Page() {
           </TabsTrigger>
           <TabsTrigger value="requests">
             Requests <Badge tone="neutral" className="ml-1">{serviceRequests.length}</Badge>
+          </TabsTrigger>
+          <TabsTrigger value="arrangements">
+            Arrangements <Badge tone="neutral" className="ml-1">{arrangements.length}</Badge>
+          </TabsTrigger>
+          <TabsTrigger value="notifications">
+            Notifications {unreadNotifications > 0 && <Badge tone="danger" className="ml-1">{unreadNotifications}</Badge>}
+            {unreadNotifications === 0 && <Badge tone="neutral" className="ml-1">{notifications.length}</Badge>}
+          </TabsTrigger>
+          <TabsTrigger value="dpa">
+            DPA {dpa.length > 0 && <Badge tone="warning" className="ml-1">{dpa.length}</Badge>}
           </TabsTrigger>
           <TabsTrigger value="audit">Audit</TabsTrigger>
         </TabsList>
@@ -267,6 +298,107 @@ export default function Resident360Page() {
                       </div>
                     </div>
                     <Badge tone={r.status === 'resolved' ? 'success' : 'warning'}>{r.status}</Badge>
+                  </li>
+                ))}
+              </ul>
+            </Card>
+          )}
+        </TabsContent>
+
+        <TabsContent value="arrangements">
+          {arrangements.length === 0 ? (
+            <EmptyState
+              icon={<CalendarClock className="h-8 w-8" />}
+              title="No payment arrangements on file."
+            />
+          ) : (
+            <Card className="overflow-hidden">
+              <ul className="divide-y divide-line">
+                {arrangements.map((a) => {
+                  const installmentCount = a.installments.length;
+                  const avgMonthly = installmentCount > 0 ? a.totalUsd / installmentCount : 0;
+                  return (
+                    <li key={a.id} className="flex items-start justify-between gap-4 px-5 py-3 text-small">
+                      <div className="min-w-0 flex-1">
+                        <div className="flex items-center gap-2">
+                          <span className="font-mono text-micro text-muted">{a.reference}</span>
+                          <Badge tone={a.status === 'approved' ? 'success' : a.status === 'pending' ? 'warning' : a.status === 'completed' ? 'info' : 'danger'}>{a.status}</Badge>
+                        </div>
+                        <div className="mt-1 font-semibold text-ink">
+                          {formatCurrency(a.totalUsd)} over {installmentCount} installment{installmentCount === 1 ? '' : 's'}
+                        </div>
+                        <div className="mt-0.5 text-micro text-muted">
+                          Requested {formatDate(a.requestedAt)} · {a.propertyLabel}
+                        </div>
+                      </div>
+                      <div className="text-right tabular-nums">
+                        <div className="text-small font-semibold text-ink">{formatCurrency(avgMonthly)}</div>
+                        <div className="text-micro text-muted">per installment</div>
+                      </div>
+                    </li>
+                  );
+                })}
+              </ul>
+            </Card>
+          )}
+        </TabsContent>
+
+        <TabsContent value="notifications">
+          {notifications.length === 0 ? (
+            <EmptyState icon={<Bell className="h-8 w-8" />} title="No notifications sent yet." />
+          ) : (
+            <Card className="overflow-hidden">
+              <ul className="divide-y divide-line">
+                {notifications.map((n) => (
+                  <li key={n.id} className="flex items-start gap-3 px-5 py-3 text-small">
+                    <span className={
+                      n.tone === 'success' ? 'mt-1 h-2 w-2 shrink-0 rounded-full bg-success' :
+                      n.tone === 'warning' ? 'mt-1 h-2 w-2 shrink-0 rounded-full bg-warning' :
+                      n.tone === 'danger'  ? 'mt-1 h-2 w-2 shrink-0 rounded-full bg-danger'  :
+                                             'mt-1 h-2 w-2 shrink-0 rounded-full bg-info'
+                    } aria-hidden />
+                    <div className="min-w-0 flex-1">
+                      <div className="flex items-center gap-2">
+                        <span className="font-semibold text-ink">{n.title}</span>
+                        {!n.readAt && <Badge tone="danger">Unread</Badge>}
+                      </div>
+                      <p className="mt-0.5 text-micro text-muted">{n.body}</p>
+                      <div className="mt-1 flex items-center gap-2 text-[10px] text-muted">
+                        <time>{formatRelative(n.createdAt)}</time>
+                        {n.channels.length > 0 && (
+                          <>
+                            <span aria-hidden>·</span>
+                            <span className="uppercase tracking-wide">{n.channels.join(' · ')}</span>
+                          </>
+                        )}
+                      </div>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            </Card>
+          )}
+        </TabsContent>
+
+        <TabsContent value="dpa">
+          {dpa.length === 0 ? (
+            <EmptyState icon={<ShieldAlert className="h-8 w-8" />} title="No data-rights requests on file." />
+          ) : (
+            <Card className="overflow-hidden">
+              <ul className="divide-y divide-line">
+                {dpa.map((d) => (
+                  <li key={d.id} className="flex items-start justify-between gap-4 px-5 py-3 text-small">
+                    <div className="min-w-0 flex-1">
+                      <div className="flex items-center gap-2">
+                        <span className="font-mono text-micro text-muted">{d.reference}</span>
+                        <Badge tone={d.status === 'fulfilled' ? 'success' : d.status === 'rejected' ? 'danger' : d.status === 'in-progress' ? 'info' : 'warning'}>{d.status}</Badge>
+                        <Badge tone="neutral">{d.kind}</Badge>
+                      </div>
+                      <div className="mt-1 text-ink">{d.reason || 'No reason provided.'}</div>
+                      <div className="mt-0.5 text-micro text-muted">
+                        Submitted {formatDate(d.submittedAt)} · due by {formatDate(d.dueBy)}
+                      </div>
+                    </div>
                   </li>
                 ))}
               </ul>

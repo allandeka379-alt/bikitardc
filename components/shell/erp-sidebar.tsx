@@ -57,6 +57,8 @@ const GROUPS: NavGroup[] = [
     heading: 'Workspace',
     items: [
       { href: '/erp/dashboard',   label: 'Dashboard',         Icon: LayoutDashboard },
+      { href: '/erp/analytics',   label: 'Executive view',    Icon: FileBarChart },
+      { href: '/erp/cadastre',    label: 'Cadastral map',     Icon: Map },
       { href: '/erp/residents',   label: 'Residents',         Icon: Users },
       { href: '/erp/properties',  label: 'Properties',        Icon: Receipt },
     ],
