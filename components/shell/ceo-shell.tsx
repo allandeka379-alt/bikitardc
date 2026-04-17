@@ -54,7 +54,10 @@ export function CeoShell({ children }: { children: ReactNode }) {
     if (!userId) {
       router.replace('/login?redirect=/ceo');
     } else if (role !== 'ceo') {
-      router.replace('/erp/dashboard');
+      // Send non-CEOs to the right place for *their* role, not unconditionally
+      // to /erp/dashboard (residents would bounce through staff gate and land
+      // back on /portal, flashing an out-of-profile shell along the way).
+      router.replace(role === 'clerk' || role === 'both' ? '/erp/dashboard' : '/portal/dashboard');
     }
   }, [hydrated, userId, role, router]);
 

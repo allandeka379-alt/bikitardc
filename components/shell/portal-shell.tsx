@@ -14,16 +14,31 @@ import { PortalSidebar } from './portal-sidebar';
 import { PortalTopBar } from './portal-top-bar';
 
 export function PortalShell({ children }: { children: ReactNode }) {
-  const { hydrated, userId } = useCurrentUser();
+  const { hydrated, userId, role, activeRole } = useCurrentUser();
   const router = useRouter();
 
   useEffect(() => {
-    if (hydrated && !userId) {
+    if (!hydrated) return;
+    if (!userId) {
       router.replace('/login?redirect=/portal/dashboard');
+      return;
     }
-  }, [hydrated, userId, router]);
+    // Route staff/CEO out of the resident portal so they don't land here
+    // by accident (e.g. via a cross-shell redirect or a bookmarked URL).
+    if (role === 'ceo') {
+      router.replace('/ceo');
+    } else if (role === 'clerk' || (role === 'both' && activeRole === 'clerk')) {
+      router.replace('/erp/dashboard');
+    }
+  }, [hydrated, userId, role, activeRole, router]);
 
-  if (hydrated && !userId) return <PortalShellSkeleton />;
+  const stayOnPortal =
+    hydrated &&
+    !!userId &&
+    role !== 'ceo' &&
+    !(role === 'clerk' || (role === 'both' && activeRole === 'clerk'));
+
+  if (!hydrated || !userId || !stayOnPortal) return <PortalShellSkeleton />;
 
   return (
     <div className="flex min-h-dvh bg-surface">

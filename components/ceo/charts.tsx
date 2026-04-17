@@ -57,6 +57,12 @@ interface ShellProps {
 }
 
 export function ChartShell({ title, subtitle, right, className, children, height = 260 }: ShellProps) {
+  // ChartShell deliberately does NOT wrap its children in Recharts'
+  // ResponsiveContainer. When the child is a custom component
+  // (e.g. <LineTimeSeries />) instead of a raw Recharts chart element,
+  // ResponsiveContainer can't inject width/height via cloneElement and
+  // the underlying SVG collapses to 0×0 → empty card. Each primitive
+  // owns its own ResponsiveContainer below.
   return (
     <div className={cn('rounded-lg border border-line bg-card p-5', className)}>
       <div className="mb-4 flex flex-wrap items-start justify-between gap-3">
@@ -66,11 +72,7 @@ export function ChartShell({ title, subtitle, right, className, children, height
         </div>
         {right}
       </div>
-      <div style={{ width: '100%', height }}>
-        <ResponsiveContainer width="100%" height="100%">
-          {children as React.ReactElement}
-        </ResponsiveContainer>
-      </div>
+      <div style={{ width: '100%', height }}>{children}</div>
     </div>
   );
 }
@@ -119,6 +121,7 @@ export function LineTimeSeries({ data, series, valueFormatter }: {
   valueFormatter?: (v: number | string) => string;
 }) {
   return (
+    <ResponsiveContainer width="100%" height="100%">
     <LineChart data={data} margin={{ top: 8, right: 12, left: 0, bottom: 0 }}>
       <CartesianGrid strokeDasharray="3 3" stroke={CHART_TOKENS.grid} vertical={false} />
       <XAxis dataKey="x" tick={{ fill: CHART_TOKENS.axisLabel, fontSize: 11 }} axisLine={{ stroke: CHART_TOKENS.axisLine }} tickLine={false} />
@@ -138,6 +141,7 @@ export function LineTimeSeries({ data, series, valueFormatter }: {
         />
       ))}
     </LineChart>
+    </ResponsiveContainer>
   );
 }
 
@@ -150,6 +154,7 @@ export function GroupedBars({ data, bars, stacked, valueFormatter }: {
   valueFormatter?: (v: number | string) => string;
 }) {
   return (
+    <ResponsiveContainer width="100%" height="100%">
     <BarChart data={data} margin={{ top: 8, right: 12, left: 0, bottom: 0 }}>
       <CartesianGrid strokeDasharray="3 3" stroke={CHART_TOKENS.grid} vertical={false} />
       <XAxis dataKey="x" tick={{ fill: CHART_TOKENS.axisLabel, fontSize: 11 }} axisLine={{ stroke: CHART_TOKENS.axisLine }} tickLine={false} />
@@ -168,6 +173,7 @@ export function GroupedBars({ data, bars, stacked, valueFormatter }: {
         />
       ))}
     </BarChart>
+    </ResponsiveContainer>
   );
 }
 
@@ -211,6 +217,7 @@ export function AreaTimeSeries({ data, dataKey, color, valueFormatter }: {
 }) {
   const c = color ?? CHART_TOKENS.primary;
   return (
+    <ResponsiveContainer width="100%" height="100%">
     <AreaChart data={data} margin={{ top: 8, right: 12, left: 0, bottom: 0 }}>
       <defs>
         <linearGradient id={`area-${dataKey}`} x1="0" y1="0" x2="0" y2="1">
@@ -224,6 +231,7 @@ export function AreaTimeSeries({ data, dataKey, color, valueFormatter }: {
       <Tooltip content={<TipContent valueFormatter={valueFormatter} />} cursor={{ stroke: CHART_TOKENS.cursor }} />
       <Area type="monotone" dataKey={dataKey} stroke={c} strokeWidth={2} fill={`url(#area-${dataKey})`} />
     </AreaChart>
+    </ResponsiveContainer>
   );
 }
 
@@ -235,6 +243,7 @@ export function StackedArea({ data, series, valueFormatter }: {
   valueFormatter?: (v: number | string) => string;
 }) {
   return (
+    <ResponsiveContainer width="100%" height="100%">
     <AreaChart data={data} margin={{ top: 8, right: 12, left: 0, bottom: 0 }}>
       <defs>
         {series.map((s, i) => {
@@ -268,6 +277,7 @@ export function StackedArea({ data, series, valueFormatter }: {
         );
       })}
     </AreaChart>
+    </ResponsiveContainer>
   );
 }
 
@@ -281,6 +291,7 @@ export function ComboChart({ data, bars, lines, valueFormatter }: {
 }) {
   const stacked = bars.some((b) => b.stack);
   return (
+    <ResponsiveContainer width="100%" height="100%">
     <ComposedChart data={data} margin={{ top: 8, right: 12, left: 0, bottom: 0 }}>
       <CartesianGrid strokeDasharray="3 3" stroke={CHART_TOKENS.grid} vertical={false} />
       <XAxis dataKey="x" tick={{ fill: CHART_TOKENS.axisLabel, fontSize: 11 }} axisLine={{ stroke: CHART_TOKENS.axisLine }} tickLine={false} />
@@ -311,6 +322,7 @@ export function ComboChart({ data, bars, lines, valueFormatter }: {
         />
       ))}
     </ComposedChart>
+    </ResponsiveContainer>
   );
 }
 
@@ -321,6 +333,7 @@ export function Donut({ data, valueFormatter }: {
   valueFormatter?: (v: number | string) => string;
 }) {
   return (
+    <ResponsiveContainer width="100%" height="100%">
     <PieChart>
       <Tooltip content={<TipContent valueFormatter={valueFormatter} />} />
       <Legend wrapperStyle={{ fontSize: 11, paddingTop: 8 }} iconType="circle" iconSize={7} />
@@ -330,6 +343,7 @@ export function Donut({ data, valueFormatter }: {
         ))}
       </Pie>
     </PieChart>
+    </ResponsiveContainer>
   );
 }
 
@@ -346,12 +360,14 @@ export function RadialGauge({ data, valueFormatter }: {
   valueFormatter?: (v: number) => string;
 }) {
   return (
+    <ResponsiveContainer width="100%" height="100%">
     <RadialBarChart innerRadius="28%" outerRadius="95%" data={data} startAngle={90} endAngle={-270} barGap={4}>
       <PolarAngleAxis type="number" domain={[0, 100]} tick={false} />
       <RadialBar background={{ fill: CHART_TOKENS.grid }} dataKey="value" cornerRadius={6} />
       <Tooltip content={<TipContent valueFormatter={(v) => (valueFormatter ? valueFormatter(Number(v)) : `${v}%`)} />} />
       <Legend wrapperStyle={{ fontSize: 11, paddingTop: 8 }} iconType="circle" iconSize={7} />
     </RadialBarChart>
+    </ResponsiveContainer>
   );
 }
 
@@ -396,6 +412,7 @@ export function RadarPlot({ data, series, max }: {
   max?: number;
 }) {
   return (
+    <ResponsiveContainer width="100%" height="100%">
     <RadarChart data={data} outerRadius="75%">
       <PolarGrid stroke={CHART_TOKENS.grid} />
       <PolarAngleAxis dataKey="axis" tick={{ fill: CHART_TOKENS.axisLabel, fontSize: 11 }} />
@@ -417,6 +434,7 @@ export function RadarPlot({ data, series, max }: {
         );
       })}
     </RadarChart>
+    </ResponsiveContainer>
   );
 }
 
@@ -434,6 +452,7 @@ export function ScatterPlot({ data, xLabel, yLabel, zLabel, xFormatter, yFormatt
   const c = color ?? CHART_TOKENS.primary;
   const hasZ = data.some((d) => typeof d.z === 'number');
   return (
+    <ResponsiveContainer width="100%" height="100%">
     <ScatterChart margin={{ top: 8, right: 16, left: 0, bottom: 16 }}>
       <CartesianGrid strokeDasharray="3 3" stroke={CHART_TOKENS.grid} />
       <XAxis type="number" dataKey="x" name={xLabel} tick={{ fill: CHART_TOKENS.axisLabel, fontSize: 11 }} axisLine={{ stroke: CHART_TOKENS.axisLine }} tickLine={false} tickFormatter={(v) => (xFormatter ? xFormatter(v) : String(v))} label={{ value: xLabel, position: 'insideBottom', offset: -6, style: { fill: CHART_TOKENS.axisLabel, fontSize: 10 } }} />
@@ -442,6 +461,7 @@ export function ScatterPlot({ data, xLabel, yLabel, zLabel, xFormatter, yFormatt
       <Tooltip content={<TipContent />} cursor={{ strokeDasharray: '3 3' }} />
       <Scatter data={data} fill={c} />
     </ScatterChart>
+    </ResponsiveContainer>
   );
 }
 
@@ -456,6 +476,7 @@ export function TreemapPlot({ data, valueFormatter }: {
     fill: d.color ?? CATEGORICAL_PALETTE[i % CATEGORICAL_PALETTE.length],
   }));
   return (
+    <ResponsiveContainer width="100%" height="100%">
     <Treemap
       data={colored}
       dataKey="value"
@@ -466,6 +487,7 @@ export function TreemapPlot({ data, valueFormatter }: {
     >
       <Tooltip content={<TipContent valueFormatter={valueFormatter ? (v) => (typeof v === 'number' ? valueFormatter(v) : String(v)) : undefined} />} />
     </Treemap>
+    </ResponsiveContainer>
   );
 }
 
@@ -511,12 +533,14 @@ export function FunnelPlot({ data, valueFormatter }: {
     fill: d.fill ?? CATEGORICAL_PALETTE[i % CATEGORICAL_PALETTE.length],
   }));
   return (
+    <ResponsiveContainer width="100%" height="100%">
     <FunnelChart>
       <Tooltip content={<TipContent valueFormatter={valueFormatter ? (v) => (typeof v === 'number' ? valueFormatter(v) : String(v)) : undefined} />} />
       <Funnel dataKey="value" data={colored} isAnimationActive stroke="#fff">
         <LabelList position="right" fill={CHART_TOKENS.tooltipText} stroke="none" dataKey="name" style={{ fontSize: 11, fontWeight: 600 }} />
       </Funnel>
     </FunnelChart>
+    </ResponsiveContainer>
   );
 }
 

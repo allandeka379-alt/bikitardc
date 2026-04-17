@@ -16,9 +16,12 @@ export function ErpShell({ children }: { children: ReactNode }) {
       router.replace('/login?redirect=/erp/dashboard');
       return;
     }
-    // Gate to staff — residents get bounced home.
+    // Allow: staff (clerk, or dual-role acting as clerk) AND the CEO (who
+    // drills into /erp/... detail pages from the executive dashboard).
+    // Residents get routed back to their portal.
     const isStaff = role === 'clerk' || (role === 'both' && activeRole === 'clerk');
-    if (!isStaff) {
+    const isCeo = role === 'ceo';
+    if (!isStaff && !isCeo) {
       router.replace('/portal/dashboard');
     }
   }, [hydrated, userId, role, activeRole, router]);
