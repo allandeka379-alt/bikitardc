@@ -44,7 +44,7 @@ export function PortalSidebar() {
 
   const handleLogout = () => {
     logout();
-    router.push('/');
+    if (typeof window !== 'undefined') window.location.href = '/';
   };
 
   return (

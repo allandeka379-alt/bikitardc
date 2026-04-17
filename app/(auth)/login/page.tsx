@@ -21,7 +21,20 @@ import { Label } from '@/components/ui/label';
 import { toast } from '@/components/ui/use-toast';
 import { useAuthStore } from '@/lib/stores/auth';
 import { useMfaStore } from '@/lib/stores/mfa';
-import { DEMO_USERS, findDemoUser } from '@/mocks/fixtures/users';
+import { DEMO_USERS, findDemoUser, type DemoRole } from '@/mocks/fixtures/users';
+
+// A ?redirect=… override is only honoured if the destination is actually
+// reachable by the freshly-logged-in user. This prevents the classic
+// post-logout race: an ErpShell / CeoShell protective bounce inserts
+// `?redirect=/erp/dashboard` as the clerk is logging out; the next user
+// to sign in then gets sent to that page regardless of their role.
+function destinationAllowed(dest: string, role: DemoRole): boolean {
+  if (dest.startsWith('/ceo'))    return role === 'ceo';
+  if (dest.startsWith('/erp'))    return role === 'clerk' || role === 'both' || role === 'ceo';
+  if (dest.startsWith('/portal')) return role === 'resident' || role === 'both';
+  // Public / marketing / auth paths are fine for anyone.
+  return true;
+}
 
 const schema = z.object({
   identifier: z.string().min(3, 'Required'),
@@ -62,7 +75,8 @@ export default function LoginPage() {
 
     doLogin(user);
     const override = sp.get('redirect');
-    const destination = override ?? user.redirect;
+    const destination =
+      override && destinationAllowed(override, user.role) ? override : user.redirect;
 
     // If MFA is enrolled for this user, challenge before letting them in.
     const enrolled = useMfaStore.getState().items[user.id];

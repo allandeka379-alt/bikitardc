@@ -67,7 +67,9 @@ export function CeoShell({ children }: { children: ReactNode }) {
 
   const handleLogout = () => {
     logout();
-    router.push('/');
+    // Hard navigation beats any shell protective redirect race. See the
+    // ErpSidebar for the full explanation.
+    if (typeof window !== 'undefined') window.location.href = '/';
   };
 
   return (

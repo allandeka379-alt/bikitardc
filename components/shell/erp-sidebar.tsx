@@ -82,7 +82,11 @@ export function ErpSidebar() {
 
   const handleLogout = () => {
     logout();
-    router.push('/');
+    // Hard navigation — a router.push / router.replace here would race
+    // with the shell's protective useEffect (which sees userId=null and
+    // wants to send the user to /login?redirect=/erp/dashboard). That
+    // stale `?redirect=` would then steer the next user who logs in.
+    if (typeof window !== 'undefined') window.location.href = '/';
   };
 
   return (
