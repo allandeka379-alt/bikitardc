@@ -70,26 +70,6 @@ export function HeroCarousel({
         ))}
       </div>
 
-      {slides.length > 1 && (
-        <div className="mt-6 flex items-center gap-2">
-          {slides.map((s, i) => (
-            <button
-              key={s.key}
-              type="button"
-              onClick={() => setIndex(i)}
-              aria-label={`Go to slide ${i + 1}`}
-              aria-current={i === index}
-              className={cn(
-                'h-1.5 rounded-full transition-all duration-base ease-out-expo',
-                i === index
-                  ? 'w-8 bg-brand-primary'
-                  : 'w-1.5 bg-brand-primary/20 hover:bg-brand-primary/40',
-              )}
-            />
-          ))}
-        </div>
-      )}
-
       <span className="sr-only" aria-live="polite">
         Slide {index + 1} of {slides.length}
       </span>

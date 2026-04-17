@@ -23,49 +23,14 @@ interface Project {
   progress: number;
 }
 
-// Images sourced from Unsplash — themed to match each project.
-// If/when the Council provides real on-site photography for Kamungoma
-// signals and carriageway, swap the first two back to
-// /building/solar-traffic-lights.jpg and /building/kamungoma-road.jpg.
-const UNSPLASH = 'https://images.unsplash.com';
-const UNSPLASH_Q = '?w=1200&q=80&auto=format&fit=crop';
-
 const PROJECTS: Project[] = [
   {
-    id: 'p_kamungoma_signals',
+    id: 'p_solar_traffic_signals',
     titleKey: 'p1.title',
     bodyKey: 'p1.body',
     location: 'Kamungoma',
-    // Solar panel array close-up — conveys "solar-powered intersection".
-    imageUrl: `${UNSPLASH}/photo-1508514177221-188b1cf16e9d${UNSPLASH_Q}`,
+    imageUrl: '/building/solar-traffic-signal.jpeg',
     progress: 100,
-  },
-  {
-    id: 'p_kamungoma_road',
-    titleKey: 'p2.title',
-    bodyKey: 'p2.body',
-    location: 'Kamungoma',
-    // Truck on a highway through mountains — new carriageway.
-    imageUrl: `${UNSPLASH}/photo-1519003722824-194d4455a60c${UNSPLASH_Q}`,
-    progress: 95,
-  },
-  {
-    id: 'p_solar_streetlights',
-    titleKey: 'p3.title',
-    bodyKey: 'p3.body',
-    location: 'District-wide',
-    // Solar field — stands in for district-wide solar lighting rollout.
-    imageUrl: `${UNSPLASH}/photo-1509391366360-2e959784a276${UNSPLASH_Q}`,
-    progress: 72,
-  },
-  {
-    id: 'p_rural_electrification',
-    titleKey: 'p4.title',
-    bodyKey: 'p4.body',
-    location: 'Silveira / Bota',
-    // Solar panels on a field — rural electrification programme.
-    imageUrl: `${UNSPLASH}/photo-1497435334941-8c899ee9e8e9${UNSPLASH_Q}`,
-    progress: 58,
   },
   {
     id: 'p_dam_rehab',
@@ -81,8 +46,7 @@ const PROJECTS: Project[] = [
     titleKey: 'p6.title',
     bodyKey: 'p6.body',
     location: 'Corridor upgrades',
-    // Welding / steelwork — infrastructure build, signage fabrication.
-    imageUrl: `${UNSPLASH}/photo-1564182842519-8a3b2af3e228${UNSPLASH_Q}`,
+    imageUrl: '/building/road-signs-safety.jpg',
     progress: 30,
   },
 ];

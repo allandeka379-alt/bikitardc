@@ -37,6 +37,8 @@ import {
   TrafficCone,
   Zap,
 } from 'lucide-react';
+// NOTE: Check is still used inside the apply/documents chip rows.
+// Trust bullets below the CTAs were removed per council feedback.
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -203,12 +205,6 @@ export function HeroSection() {
             </Button>
           </div>
 
-          {/* Trust bullets */}
-          <ul className="mt-5 flex flex-wrap items-center gap-x-6 gap-y-2 text-small text-muted">
-            <Bullet>{t('trustNoAccount')}</Bullet>
-            <Bullet>{t('trustOffline')}</Bullet>
-            <Bullet>{t('trustBilingual')}</Bullet>
-          </ul>
         </div>
       </div>
     </section>
@@ -264,11 +260,3 @@ function ChipRow({
   );
 }
 
-function Bullet({ children }: { children: React.ReactNode }) {
-  return (
-    <li className="inline-flex items-center gap-1.5">
-      <Check className="h-3.5 w-3.5 text-success" aria-hidden />
-      <span>{children}</span>
-    </li>
-  );
-}
